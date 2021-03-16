@@ -19,6 +19,14 @@
     ],
     "/_polyfills": [
       "static/runtime/polyfills.js"
+    ],
+    "/crearcuenta": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
+    "/login": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
     ]
   }
 }

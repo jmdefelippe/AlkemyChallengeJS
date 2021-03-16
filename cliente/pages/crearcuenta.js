@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import Link from 'next/link';
 import Layout from '../components/Layout';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -36,7 +37,7 @@ const CrearCuenta = () => {
 
   return ( 
     <Layout>
-        <div className="md:w-4/5 xl:w-3/5 mx-auto mb-32">
+        <div className="md:w-4/5 xl:w-3/5 mx-auto">
           <h2 className="text-3xl font-sans font-bold text-black-500 text-center my-4">Crear Cuenta</h2>
 
           { mensaje && <Alerta />}
@@ -44,7 +45,7 @@ const CrearCuenta = () => {
           <div className="flex justify-center mt-5">
               <div className="w-full max-w-lg">
                   <form
-                    className="bg-white rounded shadow-md px-8 pt-6 pb-8 mb-4"
+                    className="bg-white rounded shadow-md px-8 pt-6 pb-8 mb-20"
                     onSubmit={formik.handleSubmit}
                   >
                       <div className="mb-4">
@@ -59,7 +60,6 @@ const CrearCuenta = () => {
                               placeholder="Nombre de Usuario"
                               value={formik.values.nombre}
                               onChange={formik.handleChange}
-                              onBlur={formik.handleBlur}
                           />
 
                           { formik.touched.nombre && formik.errors.nombre ? (
@@ -82,7 +82,6 @@ const CrearCuenta = () => {
                               placeholder="Email de Usuario"
                               value={formik.values.email}
                               onChange={formik.handleChange}
-                              onBlur={formik.handleBlur}
                           />
                           { formik.touched.email && formik.errors.email ? (
                             <div className="my-2 bg-gray-200 border-l-4 border-red-500 text-red-700 p-4">
@@ -104,7 +103,6 @@ const CrearCuenta = () => {
                               placeholder="Password de Usuario"
                               value={formik.values.password}
                               onChange={formik.handleChange}
-                              onBlur={formik.handleBlur}
                           />
                           { formik.touched.password && formik.errors.password ? (
                             <div className="my-2 bg-gray-200 border-l-4 border-red-500 text-red-700 p-4">
@@ -114,11 +112,20 @@ const CrearCuenta = () => {
                           ) : null }
                       </div>
 
-                      <input 
-                        type="submit"
-                        className="bg-blue-400 hover:bg-gray-900 w-full p-2 text-white uppercase font-bold"
-                        value="Crear Cuenta"
-                      />
+                      <div class="grid grid-cols-1 divide-y divide-gray-400">
+                        <input 
+                          type="submit"
+                          className="bg-blue-400 hover:bg-gray-900 w-full p-2 text-white uppercase font-bold mb-6"
+                          value="Crear Cuenta"
+                        />
+                        
+                        <div className="text-center">
+                            <Link href="/login">
+                              <a className="text-gray-800 text-sm-1">Volver a iniciar sesión</a>
+                            </Link>
+                          </div>
+                      </div>
+
                   </form>
               </div>
           </div>

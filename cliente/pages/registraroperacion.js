@@ -41,7 +41,7 @@ const RegistrarOperacion = () => {
 
   return ( 
     <Layout>
-        <div className="md:w-4/5 xl:w-3/5 mx-auto mb-32">
+        <div className="md:w-4/5 xl:w-3/5 mx-auto">
           <h2 className="text-3xl font-sans font-bold text-black-500 text-center my-4">Registrar Operación</h2>
 
           { mensaje && <Alerta />}
@@ -49,7 +49,7 @@ const RegistrarOperacion = () => {
           <div className="flex justify-center mt-5">
               <div className="w-full max-w-lg">
                   <form
-                    className="bg-white rounded shadow-md px-8 pt-6 pb-8 mb-4"
+                    className="bg-white rounded shadow-md px-8 pt-6 pb-8 mb-20"
                     onSubmit={formik.handleSubmit}
                   >
                       <div className="mb-4">

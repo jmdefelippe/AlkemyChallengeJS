@@ -29,47 +29,33 @@ const Header = () => {
 
 
     return ( 
-        <header className="py-8 flex flex-col md:flex-row items-center justify-around">
+        <header className="bg-gray-200 py-8 flex flex-col md:flex-row items-center justify-around">
             <img 
                 onClick={() => redireccionar() }
                 className="w-64 mb-8 md:mb-0 cursor-pointer" src="/logo.png" 
             />
 
-            <div>
-                {
-                    usuario ? (
-                        <div className="flex items-center">
+            
+            <div className="flex items-center">
+                <Link href="/registraroperacion">
+                    <a className="px-5 py-3 text-black font-bold mr-2">Registrar Operación</a>
+                </Link>
+                <Link href="/listado">
+                    <a className="px-5 py-3 text-black font-bold mr-2">Listado</a>
+                </Link>
+            
 
 
-                            <p className="mr-2">Hola {usuario.nombre}</p>
-                            <button 
-                                type="button"
-                                className="bg-black px-5 py-3 rounded-lg text-white font-bold uppercase"
-                                onClick={() => cerrarSesion() }
-                            >Cerrar Sesión</button>
-                        </div>
-                    ) : (
-                        <>
-
-                            <Link href="/registraroperacion">
-                                <a className="bg-blue-400 px-5 py-3 rounded-lg text-white font-bold uppercase mr-2">Registrar Operación</a>
-                            </Link>
-                            <Link href="/listado">
-                                <a className="bg-blue-400 px-5 py-3 rounded-lg text-white font-bold uppercase mr-2">Listado</a>
-                            </Link>
-
-                            <Link href="/login">
-                                <a className="bg-black px-5 py-3 rounded-lg text-white font-bold uppercase mr-2">Iniciar Sesión</a>
-                            </Link>
-                            <Link href="/crearcuenta">
-                                <a className="bg-black px-5 py-3 rounded-lg text-white font-bold uppercase">Crear Cuenta</a>
-                            </Link>
-
-
-                        </>
-                    )
-                }
+                <p className="px-5">Hola usuario.nombre{/*usuario.nombre*/}</p>
+                <button 
+                    type="button"
+                    className="bg-blue-400 px-5 py-3 rounded-lg text-white font-bold uppercase"
+                    onClick={() => cerrarSesion() }
+                >Cerrar Sesión</button>
             </div>
+
+          
+            
         </header>
      );
 }
