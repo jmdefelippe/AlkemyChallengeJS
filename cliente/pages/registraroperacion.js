@@ -131,7 +131,7 @@ const RegistrarOperacion = () => {
                               value={formik.values.tipo}
                               onChange={formik.handleChange}
                           >
-                                <option value="" selected disabled hidden>Tipo</option>
+                                <option value="" defaultValue disabled hidden>Tipo</option>
                                 <option value="Ingreso">Ingreso</option>
                                 <option value="Egreso">Egreso</option>
                           </select>
@@ -157,7 +157,7 @@ const RegistrarOperacion = () => {
                               value={formik.values.categoria}
                               onChange={formik.handleChange}
                           >
-                                <option value="" selected disabled hidden>Categoría</option>
+                                <option value="" defaultValue disabled hidden>Categoría</option>
                                 <option value="Categoria 1">Categora 1</option>
                                 <option value="Categoria 2">Categora 2</option>
                                 <option value="Categoria n">Categora n</option>

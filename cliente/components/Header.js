@@ -19,7 +19,7 @@ const Header = () => {
     const { limpiarState } = AppContext;
 
     useEffect(() => {
-        usuarioAutenticado()
+        usuarioAutenticado();
     }, []);
 
     const redireccionar = () => {
@@ -27,36 +27,78 @@ const Header = () => {
         limpiarState();
     }
 
+    const mostrarMenu = () => {
+        menu.classList.toggle('hidden');
+    }
 
-    return ( 
-        <header className="bg-gray-200 py-8 flex flex-col md:flex-row items-center justify-around">
+    return (
+
+
+        <nav className="flex items-center justify-between flex-wrap bg-gray-300 p-6 xl:px-20">
             <img 
                 onClick={() => redireccionar() }
-                className="w-64 mb-8 md:mb-0 cursor-pointer" src="/logo.png" 
+                className="w-64 mb-8 md:mb-0 cursor-pointer lg:mr-10 xl:mr-20" src="/logo.png" 
             />
 
-            
-            <div className="flex items-center">
-                <Link href="/registraroperacion">
-                    <a className="px-5 py-3 text-black font-bold mr-2">Registrar Operación</a>
-                </Link>
-                <Link href="/listado">
-                    <a className="px-5 py-3 text-black font-bold mr-2">Listado</a>
-                </Link>
-            
+            <div>
+                {
+                    usuario ? (
+                        <div>
+                            <div className="block lg:hidden">
+                                <button
+                                    id="boton"
+                                    className="flex items-center px-3 py-2 border rounded text-blue-500 border-blue-500 hover:text-black hover:border-black"
+                                    onClick={() => mostrarMenu() }    
+                                >
+                                <svg className="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+                                </button>
+                            </div>
 
+                            <div id="menu" className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+                                <div className="lg:flex-grow text-black font-bold">
+                                    <Link href="/registraroperacion">
+                                        <a className="block py-4 lg:inline-block lg:mt-0 mr-10 py-3 hover:text-blue-400">Registrar Operación</a>
+                                    </Link>
+                                    <Link href="/listado">
+                                        <a className="block py-4 lg:inline-block lg:mt-0 mr-10 py-3 mb-3 hover:text-blue-400">Listado</a>
+                                    </Link>
+                                {/*    
+                                    <p className="lg:flex-grow text-black font-bold block py-4 lg:inline-block lg:mt-0 mr-10 py-3">
+                                        Hola {usuario.nombre}! </p>
+                                */}        
+                                    <a href="/login" className="inline-block border rounded-lg hover:bg-black lg:mt-0 bg-blue-400 px-5 py-3 text-white font-bold uppercase"
+                                        onClick={() => cerrarSesion() }
+                                        >Cerrar Sesión
+                                    </a>
+                                </div>
 
-                <p className="px-5">Hola usuario.nombre{/*usuario.nombre*/}</p>
-                <button 
-                    type="button"
-                    className="bg-blue-400 px-5 py-3 rounded-lg text-white font-bold uppercase"
-                    onClick={() => cerrarSesion() }
-                >Cerrar Sesión</button>
+                                
+                                    
+                                
+                            </div>                        
+                        </div>            
+                    
+                    ) : (
+                        <>
+                            <Link href="/login">
+                                <a className="inline-block border rounded-lg hover:bg-black lg:mt-0 bg-blue-400 mr-3 px-5 py-3 text-white font-bold uppercase">Iniciar Sesión</a>
+                            </Link>
+                            <Link href="/crearcuenta">
+                                <a className="inline-block border rounded-lg hover:bg-black lg:mt-0 bg-blue-400 px-5 py-3 text-white font-bold uppercase">Crear Cuenta</a>
+                            </Link>
+                        </>
+                    )
+                }
+
             </div>
 
-          
+
             
-        </header>
+
+
+
+
+        </nav>
      );
 }
  

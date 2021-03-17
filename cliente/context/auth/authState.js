@@ -39,6 +39,9 @@ const AuthState = ({children}) => {
                 type: REGISTRO_EXITOSO,
                 payload: respuesta.data.msg
             });
+
+            // obtener el usuario
+            //usuarioAutenticado();
         } catch (error) {
             dispatch({
                 type: REGISTRO_ERROR,
@@ -94,10 +97,10 @@ const AuthState = ({children}) => {
             }
 
         } catch (error) {
-            //console.log(error);
+            console.log(error);
             dispatch({
-                //type: LOGIN_ERROR,
-                //payload: error.response.data.msg
+                type: LOGIN_ERROR,
+                payload: error.response.data.msg
             })
         }
     }

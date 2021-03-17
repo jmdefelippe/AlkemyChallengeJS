@@ -5,19 +5,31 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import authContext from '../context/auth/authContext';
 import Alerta from '../components/Alerta'
+import { useRouter } from 'next/router';
 
 const CrearCuenta = () => {
 
   // Acceder al state
   const AuthContext = useContext(authContext);
-  const { mensaje, registrarUsuario } = AuthContext;
+  const { mensaje, autenticado, registrarUsuario } = AuthContext;
+
+  // Next router
+  const router = useRouter();
+
+  useEffect(() => {
+    if(autenticado) {
+      router.push('/');
+    }
+  }, [autenticado]);
+
 
   // Formulario y validación con formik y Yup
   const formik = useFormik({
       initialValues: {
         nombre: '',
         email: '',
-        password: ''
+        password: '',
+        confirmarPassword: ''
       },
       validationSchema: Yup.object({
           nombre: Yup.string()
@@ -27,10 +39,14 @@ const CrearCuenta = () => {
                     .required('El Email es Obligatorio'),
           password: Yup.string()
                     .required('El password no puede ir vacio')
+                    .min(6, 'El password debe contener al menos 6 caracteres'),
+          confirmarPassword: Yup.string()
+                    .required('El password no puede ir vacio')
                     .min(6, 'El password debe contener al menos 6 caracteres')
+                    .oneOf([Yup.ref('password'), null], 'Los Passwords no coinciden')
       }),
       onSubmit: valores => {
-          registrarUsuario(valores)
+          registrarUsuario(valores);
       }
   });
 
@@ -112,16 +128,37 @@ const CrearCuenta = () => {
                           ) : null }
                       </div>
 
-                      <div class="grid grid-cols-1 divide-y divide-gray-400">
+                      <div className="mb-4">
+                          <label 
+                            className="block text-black text-sm font-bold mb-2"
+                            htmlFor="confirmarPassword"
+                          >Confirmar Password</label>
+                          <input
+                              type="password"
+                              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                              id="confirmarPassword"
+                              placeholder="Repite la Password"
+                              value={formik.values.confirmarPassword}
+                              onChange={formik.handleChange}
+                          />
+                          { formik.touched.confirmarPassword && formik.errors.confirmarPassword ? (
+                            <div className="my-2 bg-gray-200 border-l-4 border-red-500 text-red-700 p-4">
+                                <p className="font-bold">Error</p>
+                                <p>{formik.errors.confirmarPassword} </p>
+                            </div>
+                          ) : null }
+                      </div>
+
+                      <div className="grid grid-cols-1 divide-y divide-gray-400">
                         <input 
                           type="submit"
-                          className="bg-blue-400 hover:bg-gray-900 w-full p-2 text-white uppercase font-bold mb-6"
+                          className="bg-blue-400 hover:bg-gray-900 w-full p-2 text-white uppercase font-bold mt-3 mb-6"
                           value="Crear Cuenta"
                         />
                         
                         <div className="text-center">
                             <Link href="/login">
-                              <a className="text-gray-800 text-sm-1">Volver a iniciar sesión</a>
+                              <a className="text-gray-800 text-sm-1">Iniciar sesión en una cuenta existente</a>
                             </Link>
                           </div>
                       </div>

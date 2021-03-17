@@ -96,10 +96,10 @@ const Login = () => {
                           ) : null }
                       </div>
 
-                      <div class="grid grid-cols-1 divide-y divide-gray-400">
+                      <div className="grid grid-cols-1 divide-y divide-gray-400">
                           <input 
                             type="submit"
-                            className="bg-blue-400 hover:bg-gray-900 w-full p-2 text-white uppercase font-bold mb-6"
+                            className="bg-blue-400 hover:bg-gray-900 w-full p-2 text-white uppercase font-bold mt-3 mb-6"
                             value="Iniciar Sesión"
                           />
 
