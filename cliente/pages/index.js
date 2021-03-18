@@ -11,7 +11,7 @@ const Index = () => {
     // Extraer el Usuario autenticado del Storage 
     const AuthContext = useContext( authContext );
     const { usuario, usuarioAutenticado } = AuthContext;
-    
+
     useEffect(() => {
       const token = localStorage.getItem('token');
 
@@ -24,13 +24,18 @@ const Index = () => {
     }, []);
 
     return ( 
-        
         <div>
             {
                 usuario ? (
                   <Layout>
                       <div className="md:w-4/5 xl:w-3/5 mx-auto">
-                          <h2 className="text-3xl font-sans font-bold text-black-500 text-center my-4">Balance</h2> 
+                      <h3 className="text-3xl font-sans font-bold text-black-500 text-center my-4"
+                      >Balance de operaciones de
+                          <span className="text-blue-500"> {usuario.nombre}</span>
+                      </h3> 
+                          <p>Ingresos:</p>
+                          <p>Egresos:</p>
+                          <p>Balance:</p>
                       </div>
                   </Layout>
                 ) : (
@@ -41,8 +46,10 @@ const Index = () => {
             }
 
         </div>
-  
   );
 }
  
 export default Index;
+
+    
+

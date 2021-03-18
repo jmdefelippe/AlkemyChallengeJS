@@ -4,7 +4,6 @@ import authContext from '../context/auth/authContext';
 import appContext from '../context/app/appContext';
 import { useRouter } from 'next/router';
 
-
 const Header = () => {
 
     // routing 
@@ -71,10 +70,7 @@ const Header = () => {
                                         >Cerrar Sesión
                                     </a>
                                 </div>
-
-                                
-                                    
-                                
+                            
                             </div>                        
                         </div>            
                     

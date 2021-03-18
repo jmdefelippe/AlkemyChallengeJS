@@ -2,9 +2,13 @@ const express = require('express');
 const conectarDB = require('./config/db');
 const cors = require('cors');
 
+const usuarios = require('./routes/usuarios');
+const auth = require('./routes/auth');
+const categorias = require('./routes/categorias');
+const operaciones = require('./routes/operaciones');
+
 // crear el servidor
 const app = express();
-
 
 // Conectar a la base de datos
 conectarDB();
@@ -24,11 +28,11 @@ app.use( express.json() );
 // Habilitar carpeta publica
 app.use( express.static('uploads') );
 
-
 // Rutas de la app
-app.use('/api/usuarios', require('./routes/usuarios'));
-app.use('/api/auth', require('./routes/auth'));
-//app.use('/api/enlaces', require('./routes/enlaces'));
+app.use('/api/usuarios', usuarios);
+app.use('/api/auth', auth);
+app.use('/api/categorias', categorias );
+app.use('/api/operaciones', operaciones );
 
 // Arrancar la app
 app.listen(port, '0.0.0.0', () => {

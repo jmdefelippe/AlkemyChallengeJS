@@ -3,13 +3,18 @@ import Layout from '../components/Layout';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import authContext from '../context/auth/authContext';
+import operacionContext from '../context/operaciones/operacionContext';
 import Alerta from '../components/Alerta'
+import { useRouter } from 'next/router';
 
 const RegistrarOperacion = () => {
 
   // Acceder al state
   const AuthContext = useContext(authContext);
-  const { mensaje, registrarUsuario } = AuthContext;
+  const { mensaje } = AuthContext;
+
+  const OperacionContext = useContext(operacionContext);
+  const { agregarOperacion } = OperacionContext;
 
   // Formulario y validación con formik y Yup
   const formik = useFormik({
@@ -34,12 +39,13 @@ const RegistrarOperacion = () => {
                 .required('La categoría es obligatoria')
       }),
       onSubmit: valores => {
-          registrarUsuario(valores)
+          agregarOperacion(valores);
       }
   });
 
 
-  return ( 
+  return (
+
     <Layout>
         <div className="md:w-4/5 xl:w-3/5 mx-auto">
           <h2 className="text-3xl font-sans font-bold text-black-500 text-center my-4">Registrar Operación</h2>
@@ -158,9 +164,11 @@ const RegistrarOperacion = () => {
                               onChange={formik.handleChange}
                           >
                                 <option value="" defaultValue disabled hidden>Categoría</option>
-                                <option value="Categoria 1">Categora 1</option>
-                                <option value="Categoria 2">Categora 2</option>
-                                <option value="Categoria n">Categora n</option>
+                                <option value="Sueldo">Sueldo</option>
+                                <option value="Donación">Donación</option>
+                                <option value="Alimentos">Alimentos</option>
+                                <option value="Impuestos">Impuestos</option>
+                                <option value="Artículos de limpieza">Artículos de limpieza</option>
 
                           </select>
 
