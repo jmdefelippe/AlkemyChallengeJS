@@ -104,17 +104,17 @@ exports.eliminarOperacion = async (req, res) => {
 
         // si el operacion existe o no
         if (!operacion) {
-            return res.status(404).json({ msg: 'Operacion no encontrado' })
+            return res.status(404).json({ msg: 'Operacion no encontrada' })
         }
 
-        // verificar el creador del operacion
-        if (operacion.creador.toString() !== req.usuario.id) {
+        // verificar el usuario que creó de la operacion
+        if (operacion.usuario.toString() !== req.usuario.id) {
             return res.status(401).json({ msg: 'No autorizado' });
         }
 
         // eliminar el operacion
         await Operacion.findOneAndRemove({ _id : req.params.id });
-        res.json({ msg: 'Operacion eliminado' })
+        res.json({ msg: 'Operacion eliminada' })
     } catch (error) {
         console.log(error);
         res.status(500).send('Error en el servidor')

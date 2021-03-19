@@ -4,6 +4,8 @@ import Alerta from '../components/Alerta';
 import Operacion from '../components/Operacion';
 import authContext from '../context/auth/authContext';
 import operacionContext from '../context/operaciones/operacionContext';
+import alertaContext from '../context/alertas/alertaContext';
+
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -18,6 +20,9 @@ const Listado = () => {
   // extraer operaciones de state inicial
   const operacionesContext = useContext(operacionContext);
   const { operaciones, mensaje, obtenerOperaciones } = operacionesContext;
+
+  const alertasContext = useContext(alertaContext);
+  const { alerta, mostrarAlerta } = alertasContext;
 
   useEffect(() => {
     const token = localStorage.getItem('token');

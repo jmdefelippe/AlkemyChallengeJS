@@ -29,13 +29,27 @@ const Index = () => {
                 usuario ? (
                   <Layout>
                       <div className="md:w-4/5 xl:w-3/5 mx-auto">
-                      <h3 className="text-3xl font-sans font-bold text-black-500 text-center my-4"
-                      >Balance de operaciones de
-                          <span className="text-blue-500"> {usuario.nombre}</span>
-                      </h3> 
-                          <p>Ingresos:</p>
-                          <p>Egresos:</p>
-                          <p>Balance:</p>
+                        
+                        <h3 className="text-3xl font-sans font-bold text-black-500 text-center my-4"
+                        >Balance de operaciones de
+                            <span className="text-blue-500"> {usuario.nombre}</span>
+                        </h3>
+
+                        
+                        <div className="grid md:w-4/5 xl:w-3/5 mx-auto mb-2 items-center bg-gray-300 rounded-lg px-5 py-2">
+                            <p className="font-bold text-blue-500 uppercase text-center">Ingresos:
+                                <span className="font-normal text-black normal-case"> Acá va la suma de ingresos</span>
+                            </p>
+                            <p className="font-bold text-blue-500 uppercase text-center">Egresos:
+                                <span className="font-normal text-black normal-case"> Acá va la suma de egresos</span>
+                            </p>
+                            <p className="font-bold text-blue-500 uppercase text-center">Balance:
+                                <span className="font-normal text-black normal-case"> Acá va ingresos-egresos</span>
+                            </p>
+                        </div>
+                                           
+
+
                       </div>
                   </Layout>
                 ) : (

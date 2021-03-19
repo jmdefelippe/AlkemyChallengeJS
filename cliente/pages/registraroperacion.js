@@ -40,6 +40,7 @@ const RegistrarOperacion = () => {
       }),
       onSubmit: valores => {
           agregarOperacion(valores);
+          console.log("se agrego ok");
       }
   });
 
