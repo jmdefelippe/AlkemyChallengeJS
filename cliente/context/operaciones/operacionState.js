@@ -9,7 +9,8 @@ import {
     OPERACION_ERROR,
     VALIDAR_FORMULARIO,
     OPERACION_ACTUAL,
-    ELIMINAR_OPERACION
+    ELIMINAR_OPERACION,
+    LIMPIAR_STATE
 } from '../../types';
 
 import clienteAxios from '../../config/axios';

@@ -4,17 +4,23 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import authContext from '../context/auth/authContext';
 import operacionContext from '../context/operaciones/operacionContext';
-import Alerta from '../components/Alerta'
+import Alerta from '../components/Alerta';
+import Swal from 'sweetalert2';
 import { useRouter } from 'next/router';
 
 const RegistrarOperacion = () => {
-
+// Next router
+const router = useRouter();
   // Acceder al state
   const AuthContext = useContext(authContext);
   const { mensaje } = AuthContext;
 
   const OperacionContext = useContext(operacionContext);
   const { agregarOperacion } = OperacionContext;
+
+  const redireccionarEdicion = operacion => {
+
+  }
 
   // Formulario y validación con formik y Yup
   const formik = useFormik({
@@ -40,7 +46,20 @@ const RegistrarOperacion = () => {
       }),
       onSubmit: valores => {
           agregarOperacion(valores);
-          console.log("se agrego ok");
+                    
+          // mostrar mensaje ok
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Operación agregada correctamente',
+            width: 400,
+            height: 400,
+            timer: 2000,
+            confirmButtonColor: '#60A5FA',
+            confirmButtonText: 'Ok!',
+          })
+          router.push('/listado');
+          // reiniciar el form
       }
   });
 

@@ -20,6 +20,8 @@ exports.crearOperacion = async (req, res) => {
         await operacion.save();
         res.json(operacion);
 
+        // res.json({msg : 'Operación Agregada Correctamente'});
+
     } catch (error) {
         console.log(error);
         res.status(500).send('Hubo un error');

@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import authContext from '../context/auth/authContext';
 import Alerta from '../components/Alerta'
 import { useRouter } from 'next/router';
+import Swal from 'sweetalert2';
 
 const CrearCuenta = () => {
 
@@ -47,6 +48,20 @@ const CrearCuenta = () => {
       }),
       onSubmit: valores => {
           registrarUsuario(valores);
+
+          // mostrar mensaje ok
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Operación agregada correctamente',
+            width: 400,
+            height: 400,
+            timer: 2000,
+            confirmButtonColor: '#60A5FA',
+            confirmButtonText: 'Ok!',
+          })
+          router.push('/login');
+
       }
   });
 
@@ -55,8 +70,6 @@ const CrearCuenta = () => {
     <Layout>
         <div className="md:w-4/5 xl:w-3/5 mx-auto">
           <h2 className="text-3xl font-sans font-bold text-black-500 text-center my-4">Crear Cuenta</h2>
-
-          { mensaje && <Alerta />}
 
           <div className="flex justify-center mt-5">
               <div className="w-full max-w-lg">

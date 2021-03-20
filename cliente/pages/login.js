@@ -8,20 +8,18 @@ import Alerta from '../components/Alerta';
 import { useRouter } from 'next/router';
 
 const Login = () => {
+    // Next router
+    const router = useRouter();
 
     // definir el context
     const AuthContext = useContext(authContext);
     const { mensaje, autenticado, iniciarSesion } = AuthContext;
-
-    // Next router
-    const router = useRouter();
 
     useEffect(() => {
       if(autenticado) {
         router.push('/');
       }
     }, [autenticado]);
-
 
     // Formulario y validación con formik y Yup
     const formik = useFormik({
@@ -46,7 +44,11 @@ const Login = () => {
     <Layout>
         <div className="md:w-4/5 xl:w-3/5 mx-auto">
           <h2 className="text-3xl font-sans font-bold text-black-500 text-center my-4">Iniciar Sesión</h2>
+
+{/*
           { mensaje && <Alerta /> }
+*/}          
+          
           <div className="flex justify-center mt-5">
               <div className="w-full max-w-lg">
                   <form

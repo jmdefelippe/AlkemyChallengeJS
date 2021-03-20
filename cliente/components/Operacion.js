@@ -1,8 +1,12 @@
 import React, { useContext } from 'react';
 import operacionContext from '../context/operaciones/operacionContext';
 import Swal from 'sweetalert2';
+import { useRouter } from 'next/router';
 
 const Operacion = ({ operacion }) => {
+
+    // Next router
+    const router = useRouter();
 
     // obtener la función del context de operaciones
     const operacionesContext = useContext(operacionContext);
@@ -13,11 +17,11 @@ const Operacion = ({ operacion }) => {
 
     fecha = operacion.fecha.substring(0,10);
 
-/*    
-    const eliminar = () => {
-        eliminarOperacion(operacion._id);
+    // funcion que redirige de forma programada
+    const redireccionarEdicion = operacion => {
+        dispatch( obtenerOperacionEditar(operacion) );
+        router.push(`/operaciones/editar/${operacion._id}`)
     }
-*/
 
     // confirmar si desea eliminarlo
     const confirmarEliminarOperacion = id => {
@@ -30,7 +34,16 @@ const Operacion = ({ operacion }) => {
             confirmButtonColor: '#60A5FA',
             cancelButtonColor: '#000000',
             confirmButtonText: 'Sí, eliminar!',
-            cancelButtonText: 'Cancelar'
+            cancelButtonText: 'Cancelar',
+            width: 400,
+            height: 400,
+            showClass: {
+                popup: 'animate__animated animate__fadeInDown'
+              },
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp'
+            }
+
         }).then((result) => {
             if (result.isConfirmed) {
                 // pasarlo al action
@@ -49,7 +62,7 @@ const Operacion = ({ operacion }) => {
         
             <img 
                 className="w-8 mr-5 cursor-pointer" src="/editar.png"
-                onClick={() => editarOperacion() }
+                onClick={ () => redireccionarEdicion(operacion) }
             />
 
             <img 
