@@ -24,7 +24,7 @@ router.get('/',
 router.put('/:id',
     auth,
     [
-        check('concepto', 'El nombre del operacion es obligatorio').not().isEmpty()
+        check('concepto', 'El concepto de la operación es obligatorio').not().isEmpty()
     ],    
     operacionController.actualizarOperacion
 );

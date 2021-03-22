@@ -10,7 +10,11 @@ import {
     VALIDAR_FORMULARIO,
     OPERACION_ACTUAL,
     ELIMINAR_OPERACION,
-    LIMPIAR_STATE
+    LIMPIAR_STATE,
+    ACTUALIZAR_OPERACION,
+    LIMPIAR_OPERACION,
+    CALCULAR_BALANCE,
+    OPERACIONES_CATEGORIAS
 } from '../../types';
 
 import clienteAxios from '../../config/axios';
@@ -22,7 +26,8 @@ const OperacionState = props => {
         nuevaOperacion : false,
         errorformulario: false,
         operacion: null,
-        mensaje: null
+        mensaje: null,
+        balance: 0
     }
 
     // dispatch para ejecutar las acciones
@@ -43,7 +48,7 @@ const OperacionState = props => {
             dispatch({
                 type: OBTENER_OPERACIONES,
                 payload: resultado.data.operaciones
-            })
+            });
         } catch (error) {
             const alerta = {
                 msg: 'Hubo un error',
@@ -115,6 +120,43 @@ const OperacionState = props => {
         }
     }
 
+    // edita o modifica una operacion
+    const actualizarOperacion = async operacion => {
+        try {
+            const resultado = await clienteAxios.put(`/api/operaciones/${operacion._id}`, operacion);
+            dispatch({
+                type: ACTUALIZAR_OPERACION,
+                payload: resultado.data.operacion
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    // elimina la operacion seleccionada
+    const limpiarOperacion = () => {
+        dispatch({
+            type: LIMPIAR_OPERACION
+        })
+    }
+
+    // calcular el balance: total ingresos - total egresos
+    const calcularBalance = () => {
+        dispatch({
+            type: CALCULAR_BALANCE
+        })
+    }
+
+    const obtenerOperacionesCategorias = categoria => {
+        dispatch({
+            type: OPERACIONES_CATEGORIAS
+        })
+        console.log(categoria);
+
+    }
+
+
+
     return (
         <operacionContext.Provider
             value={{
@@ -123,12 +165,16 @@ const OperacionState = props => {
                 errorformulario: state.errorformulario,
                 operacion: state.operacion,
                 mensaje: state.mensaje,
+                balance: state.balance,
                 mostrarFormulario,
                 obtenerOperaciones,
                 agregarOperacion,
                 mostrarError,
                 operacionActual,
-                eliminarOperacion
+                eliminarOperacion,
+                actualizarOperacion,
+                calcularBalance,
+                obtenerOperacionesCategorias
             }}
         >
             {props.children}

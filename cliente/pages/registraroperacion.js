@@ -18,10 +18,6 @@ const router = useRouter();
   const OperacionContext = useContext(operacionContext);
   const { agregarOperacion } = OperacionContext;
 
-  const redireccionarEdicion = operacion => {
-
-  }
-
   // Formulario y validación con formik y Yup
   const formik = useFormik({
       initialValues: {
@@ -170,6 +166,76 @@ const router = useRouter();
                           ) : null }
                       </div>
 
+
+
+                      { ((formik.values.tipo === 'Ingreso') || (formik.values.tipo === 'ingreso')) ? (
+
+                          <div className="mb-4">
+                              <label 
+                                className="block text-black text-sm font-bold mb-2"
+                                htmlFor="categoria"
+                              >Categoria</label>
+                              <select
+                                  type="text"
+                                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                  id="categoria"
+                                  placeholder="Categoria"
+                                  value={formik.values.categoria}
+                                  onChange={formik.handleChange}
+                              >
+                                    <option value="" defaultValue disabled hidden>Categoría</option>
+                                    <option value="Sueldo">Sueldo</option>
+                                    <option value="Donación">Donación</option>
+                                  
+
+                              </select>
+
+                              { formik.touched.categoria && formik.errors.categoria ? (
+                                <div className="my-2 bg-gray-200 border-l-4 border-red-500 text-red-700 p-4">
+                                    <p className="font-bold">Error</p>
+                                    <p>{formik.errors.categoria} </p>
+                                </div>
+                              ) : null }
+                          </div>
+
+                          ) : ( null ) }
+
+                      { ((formik.values.tipo === 'Egreso') || (formik.values.tipo === 'egreso')) ? (
+                          
+                          <div className="mb-4">
+                              <label 
+                                className="block text-black text-sm font-bold mb-2"
+                                htmlFor="categoria"
+                              >Categoria</label>
+                              <select
+                                  type="text"
+                                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                  id="categoria"
+                                  placeholder="Categoria"
+                                  value={formik.values.categoria}
+                                  onChange={formik.handleChange}
+                              >
+                                    <option value="" defaultValue disabled hidden>Categoría</option>
+                                    
+                                    <option value="Alimentos">Alimentos</option>
+                                    <option value="Impuestos">Impuestos</option>
+                                    <option value="Artículos de limpieza">Artículos de limpieza</option>
+
+                              </select>
+
+                              { formik.touched.categoria && formik.errors.categoria ? (
+                                <div className="my-2 bg-gray-200 border-l-4 border-red-500 text-red-700 p-4">
+                                    <p className="font-bold">Error</p>
+                                    <p>{formik.errors.categoria} </p>
+                                </div>
+                              ) : null }
+                          </div>
+                      ) : ( null ) }
+
+
+
+
+{/*
                       <div className="mb-4">
                           <label 
                             className="block text-black text-sm font-bold mb-2"
@@ -199,6 +265,8 @@ const router = useRouter();
                             </div>
                           ) : null }
                       </div>
+*/}
+
 
                       <input 
                         type="submit"

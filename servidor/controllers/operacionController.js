@@ -69,6 +69,9 @@ exports.actualizarOperacion = async(req, res) => {
     }
 
     // agregar tantos if como campos haya
+    console.log(req.params);
+//    console.log(req);
+console.log(req.body);
 
     try {
         
@@ -81,12 +84,12 @@ exports.actualizarOperacion = async(req, res) => {
         }
 
         // verificar el creador del operacion
-        if (operacion.creador.toString() !== req.usuario.id) {
+        if (operacion.usuario.toString() !== req.usuario.id) {
             return res.status(401).json({ msg: 'No autorizado '});
         }
 
         // actualizar
-        operacion = await Operacion.findByIdAndUpdate({ _id: req.params.id }, { $set:
+        operacion = await Operacion.findByIdAndUpdate({ _id: req.params._id }, { $set:
         nuevaOperacion }, { new: true });
 
         res.json({operacion});

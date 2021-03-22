@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import Layout from '../components/Layout';
 import authContext from '../context/auth/authContext';
+import operacionContext from '../context/operaciones/operacionContext';
 import { useRouter } from 'next/router';
 
 const Index = () => {
@@ -12,11 +13,17 @@ const Index = () => {
     const AuthContext = useContext( authContext );
     const { usuario, usuarioAutenticado } = AuthContext;
 
+    // extraer operaciones de state inicial
+    const operacionesContext = useContext(operacionContext);
+    const { balance, obtenerOperaciones, calcularBalance } = operacionesContext;
+
     useEffect(() => {
       const token = localStorage.getItem('token');
 
       if(token) {
-        usuarioAutenticado()
+        usuarioAutenticado();
+        obtenerOperaciones();
+        calcularBalance();
       } else {
         router.push('/login');
       }
@@ -44,7 +51,7 @@ const Index = () => {
                                 <span className="font-normal text-black normal-case"> Acá va la suma de egresos</span>
                             </p>
                             <p className="font-bold text-blue-500 uppercase text-center">Balance:
-                                <span className="font-normal text-black normal-case"> Acá va ingresos-egresos</span>
+                                <span className="font-normal text-black normal-case"> {balance} </span>
                             </p>
                         </div>
                                            

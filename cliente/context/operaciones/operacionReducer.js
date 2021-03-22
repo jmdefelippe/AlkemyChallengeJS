@@ -5,7 +5,11 @@ import {
     OPERACION_ERROR,
     VALIDAR_FORMULARIO,
     OPERACION_ACTUAL,
-    ELIMINAR_OPERACION
+    ELIMINAR_OPERACION,
+    ACTUALIZAR_OPERACION,
+    LIMPIAR_OPERACION,
+    CALCULAR_BALANCE,
+    OPERACIONES_CATEGORIAS
 } from '../../types';
 
 export default (state, action) => {
@@ -50,6 +54,33 @@ export default (state, action) => {
                 ...state,
                 mensaje: action.payload
             }
+        case ACTUALIZAR_OPERACION:
+            return {
+                ...state,
+                operaciones: state.operaciones.map(operacion => operacion._id === action.payload._id
+                ? action.payload : operacion)
+            }
+        case LIMPIAR_OPERACION:
+            return {
+                ...state,
+                operacion: null
+            }
+        case CALCULAR_BALANCE:
+            return {
+                ...state,
+                balance: state.operaciones.map(operacion => 
+                    (operacion.tipo === 'Ingreso' || operacion.tipo === 'ingreso') 
+                        ? state.balance += operacion.monto
+                        : state.balance -= operacion.monto
+                )
+            }
+        case OPERACIONES_CATEGORIAS:
+            return {
+                ...state,
+                operaciones: state.operaciones.filter(operacion => operacion.categoria ===
+                action.payload)
+            }
+
         default:
             return state;
     }
