@@ -14,7 +14,9 @@ import {
     ACTUALIZAR_OPERACION,
     LIMPIAR_OPERACION,
     CALCULAR_BALANCE,
-    OPERACIONES_CATEGORIAS
+    OPERACIONES_CATEGORIAS,
+    TOTAL_INGRESOS,
+    TOTAL_EGRESOS
 } from '../../types';
 
 import clienteAxios from '../../config/axios';
@@ -27,7 +29,9 @@ const OperacionState = props => {
         errorformulario: false,
         operacion: null,
         mensaje: null,
-        balance: 0
+        balance: 0,
+        ingresos: 0,
+        egresos: 0
     }
 
     // dispatch para ejecutar las acciones
@@ -140,19 +144,42 @@ const OperacionState = props => {
         })
     }
 
+    const calcularTotalIngresos = async () => {
+        dispatch({
+            type: TOTAL_INGRESOS
+        })
+    }
+
+    const calcularTotalEgresos = async () => {
+        dispatch({
+            type: TOTAL_EGRESOS
+        })
+    }
+
+
     // calcular el balance: total ingresos - total egresos
-    const calcularBalance = () => {
+    const calcularBalance = async () => {
         dispatch({
             type: CALCULAR_BALANCE
         })
     }
 
-    const obtenerOperacionesCategorias = categoria => {
-        dispatch({
-            type: OPERACIONES_CATEGORIAS
-        })
-        console.log(categoria);
+    const calcularTotales = async () => {
+        await obtenerOperaciones();
 
+        calcularTotalIngresos();
+        calcularTotalEgresos();
+        calcularBalance();
+    }
+
+    const obtenerOperacionesCategorias = async categoria => {
+        
+        await obtenerOperaciones();
+
+        dispatch({
+            type: OPERACIONES_CATEGORIAS,
+            payload: categoria
+        })
     }
 
 
@@ -166,6 +193,8 @@ const OperacionState = props => {
                 operacion: state.operacion,
                 mensaje: state.mensaje,
                 balance: state.balance,
+                ingresos: state.ingresos,
+                egresos: state.egresos,
                 mostrarFormulario,
                 obtenerOperaciones,
                 agregarOperacion,
@@ -173,8 +202,11 @@ const OperacionState = props => {
                 operacionActual,
                 eliminarOperacion,
                 actualizarOperacion,
+                calcularTotalIngresos,
+                calcularTotalEgresos,
                 calcularBalance,
-                obtenerOperacionesCategorias
+                obtenerOperacionesCategorias,
+                calcularTotales
             }}
         >
             {props.children}

@@ -15,15 +15,29 @@ const editarOperacion = () => {
 
   // Acceder al state
   const AuthContext = useContext(authContext);
-  const { mensaje } = AuthContext;
+  const { mensaje, usuarioAutenticado } = AuthContext;
 
   const OperacionContext = useContext(operacionContext);
-  const { actualizarOperacion, operacion } = OperacionContext;
+  let { actualizarOperacion, operacion } = OperacionContext;
+
+  operacion = operacion || [{}];
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    if(token) {
+      usuarioAutenticado();
+    } else {
+      router.push('/login');
+    }
+  
+    // eslint-disable-next-line
+  }, []);
 
   // Formulario y validación con formik y Yup
   const formik = useFormik({
       initialValues: {
-//_id: operacion[0]._id,
+_id: operacion[0]._id,
         concepto: operacion[0].concepto,
         monto: operacion[0].monto,
         fecha: operacion[0].fecha,

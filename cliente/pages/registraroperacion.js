@@ -13,10 +13,23 @@ const RegistrarOperacion = () => {
 const router = useRouter();
   // Acceder al state
   const AuthContext = useContext(authContext);
-  const { mensaje } = AuthContext;
+  const { mensaje, usuarioAutenticado } = AuthContext;
 
   const OperacionContext = useContext(operacionContext);
   const { agregarOperacion } = OperacionContext;
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    if(token) {
+      usuarioAutenticado();
+    } else {
+      router.push('/login');
+    }
+  
+    
+    // eslint-disable-next-line
+  }, []);
 
   // Formulario y validación con formik y Yup
   const formik = useFormik({

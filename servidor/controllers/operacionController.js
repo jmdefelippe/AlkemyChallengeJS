@@ -14,7 +14,7 @@ exports.crearOperacion = async (req, res) => {
         const operacion = new Operacion({...req.body, usuario: req.usuario.id});
 
         // guardar el creador via JWT
-        operacion.creador = req.usuario._id;
+        operacion.usuario = req.usuario.id;
 
         // guardar el operacion
         await operacion.save();
@@ -88,9 +88,14 @@ console.log(req.body);
             return res.status(401).json({ msg: 'No autorizado '});
         }
 
+        
         // actualizar
-        operacion = await Operacion.findByIdAndUpdate({ _id: req.params._id }, { $set:
+        operacion = await Operacion.findByIdAndUpdate({ _id: req.params.id }, { $set:
         nuevaOperacion }, { new: true });
+
+
+        // actualizar
+//        operacion = await Operacion.findOneAndUpdate({ _id: req.params.id }, nuevaOperacion, { new: true });
 
         res.json({operacion});
 

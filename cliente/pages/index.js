@@ -11,23 +11,25 @@ const Index = () => {
 
     // Extraer el Usuario autenticado del Storage 
     const AuthContext = useContext( authContext );
-    const { usuario, usuarioAutenticado } = AuthContext;
+    let { usuario, usuarioAutenticado } = AuthContext;
+
+  usuario = usuario || {};
 
     // extraer operaciones de state inicial
     const operacionesContext = useContext(operacionContext);
-    const { balance, obtenerOperaciones, calcularBalance } = operacionesContext;
+    const { ingresos, egresos, balance, calcularTotales } = operacionesContext;
 
     useEffect(() => {
       const token = localStorage.getItem('token');
 
       if(token) {
         usuarioAutenticado();
-        obtenerOperaciones();
-        calcularBalance();
       } else {
         router.push('/login');
       }
     
+      calcularTotales();
+      // eslint-disable-next-line
     }, []);
 
     return ( 
@@ -45,13 +47,13 @@ const Index = () => {
                         
                         <div className="grid md:w-4/5 xl:w-3/5 mx-auto mb-2 items-center bg-gray-300 rounded-lg px-5 py-2">
                             <p className="font-bold text-blue-500 uppercase text-center">Ingresos:
-                                <span className="font-normal text-black normal-case"> Acá va la suma de ingresos</span>
+                                <span className="font-normal text-black normal-case"> ${ingresos} </span>
                             </p>
                             <p className="font-bold text-blue-500 uppercase text-center">Egresos:
-                                <span className="font-normal text-black normal-case"> Acá va la suma de egresos</span>
+                                <span className="font-normal text-black normal-case"> ${egresos} </span>
                             </p>
                             <p className="font-bold text-blue-500 uppercase text-center">Balance:
-                                <span className="font-normal text-black normal-case"> {balance} </span>
+                                <span className="font-normal text-black normal-case"> ${balance} </span>
                             </p>
                         </div>
                                            

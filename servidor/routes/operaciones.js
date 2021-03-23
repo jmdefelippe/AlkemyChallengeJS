@@ -9,7 +9,11 @@ const { check } = require('express-validator');
 router.post('/',
     auth,
     [
-        check('concepto', 'El concepto de la operacion es obligatorio').not().isEmpty()
+        check('concepto', 'El concepto de la operacion es obligatorio').not().isEmpty(),
+        check('monto', 'El monto de la operacion es obligatorio').not().isEmpty(),
+        check('fecha', 'La fecha de la operacion es obligatorio').not().isEmpty(),
+        check('tipo', 'El tipo de operacion es obligatorio').not().isEmpty(),
+        check('categoria', 'La categoria de la operacion es obligatorio').not().isEmpty()
     ],
     operacionController.crearOperacion
 )

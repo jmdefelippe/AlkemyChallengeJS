@@ -9,7 +9,9 @@ import {
     ACTUALIZAR_OPERACION,
     LIMPIAR_OPERACION,
     CALCULAR_BALANCE,
-    OPERACIONES_CATEGORIAS
+    OPERACIONES_CATEGORIAS,
+    TOTAL_INGRESOS,
+    TOTAL_EGRESOS
 } from '../../types';
 
 export default (state, action) => {
@@ -68,11 +70,14 @@ export default (state, action) => {
         case CALCULAR_BALANCE:
             return {
                 ...state,
-                balance: state.operaciones.map(operacion => 
-                    (operacion.tipo === 'Ingreso' || operacion.tipo === 'ingreso') 
-                        ? state.balance += operacion.monto
-                        : state.balance -= operacion.monto
-                )
+                balance: state.operaciones.reduce( (monto, operacion) => {
+                    if (typeof monto !== 'number') {
+                       monto = monto.monto;
+                   }
+                  if (operacion.tipo === 'Ingreso') monto += operacion.monto;
+                  if (operacion.tipo === 'Egreso') monto -= operacion.monto;
+                  return monto;
+                }, 0)
             }
         case OPERACIONES_CATEGORIAS:
             return {
@@ -80,6 +85,29 @@ export default (state, action) => {
                 operaciones: state.operaciones.filter(operacion => operacion.categoria ===
                 action.payload)
             }
+        case TOTAL_INGRESOS:
+            return {
+                ...state,
+                ingresos: state.operaciones.reduce( (monto, operacion) => {
+                    if (typeof monto !== 'number') {
+                        monto = monto.monto;
+                    }
+                    if (operacion.tipo === 'Ingreso') monto += operacion.monto;
+                    return monto;
+                }, 0)
+            }
+        case TOTAL_EGRESOS:
+            return {
+                ...state,
+                egresos: state.operaciones.reduce( (monto, operacion) => {
+                    if (typeof monto !== 'number') {
+                        monto = monto.monto;
+                    }
+                    if (operacion.tipo === 'Egreso') monto += operacion.monto;
+                    return monto;
+                }, 0)
+            }
+
 
         default:
             return state;

@@ -56,10 +56,16 @@ const Header = () => {
                             <div id="menu" className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
                                 <div className="lg:flex-grow text-black font-bold">
                                     <Link href="/registraroperacion">
-                                        <a className="block py-4 lg:inline-block lg:mt-0 mr-10 py-3 hover:text-blue-400">Registrar Operación</a>
+                                        <a className={router.pathname === "/registraroperacion"
+                                            ? "block py-4 lg:inline-block lg:mt-0 mr-10 py-3 hover:text-blue-400 underline"
+                                            : "block py-4 lg:inline-block lg:mt-0 mr-10 py-3 hover:text-blue-400"
+                                        }>Registrar Operación</a>
                                     </Link>
                                     <Link href="/listado">
-                                        <a className="block py-4 lg:inline-block lg:mt-0 mr-10 py-3 mb-3 hover:text-blue-400">Listado</a>
+                                        <a className={router.pathname === "/listado"
+                                            ? "block py-4 lg:inline-block lg:mt-0 mr-10 py-3 hover:text-blue-400 underline"
+                                            : "block py-4 lg:inline-block lg:mt-0 mr-10 py-3 hover:text-blue-400"
+                                        }>Listado</a>
                                     </Link>
                                 {/*    
                                     <p className="lg:flex-grow text-black font-bold block py-4 lg:inline-block lg:mt-0 mr-10 py-3">

@@ -18,6 +18,8 @@ const Login = () => {
     useEffect(() => {
       if(autenticado) {
         router.push('/');
+      } else {
+        router.push('/login');
       }
     }, [autenticado]);
 

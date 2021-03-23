@@ -14,7 +14,7 @@ exports.autenticarUsuario = async (req, res, next) => {
 
     // Buscar el usuario para ver si esta registrado
     const { email, password } = req.body;
-    const usuario = await Usuario.findOne({  email });
+    const usuario = await Usuario.findOne({ email });
     // console.log(usuario);
 
     if(!usuario) {

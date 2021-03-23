@@ -18,7 +18,9 @@ const Listado = () => {
 
   // Extraer el Usuario autenticado del Storage 
   const AuthContext = useContext( authContext );
-  const { usuario, usuarioAutenticado } = AuthContext;
+  let { usuario, usuarioAutenticado } = AuthContext;
+
+  usuario = usuario || {};
   
   // extraer operaciones de state inicial
   const operacionesContext = useContext(operacionContext);
@@ -37,6 +39,7 @@ const Listado = () => {
     } else {
       router.push('/login');
     }
+
     // si hay un error
     if (mensaje) {
       mostrarAlerta(mensaje.msg, mensaje.categoria);
@@ -46,34 +49,30 @@ const Listado = () => {
     // eslint-disable-next-line
 
   }, [mensaje]);
-
+ 
 
   // revisar si operaciones tiene contenido
   //if(operaciones.length === 0) return <p>No hay operaciones</p>;
 
   const ordenarPorFecha = () => {
     obtenerOperaciones();
-    console.log("orden por fecha...");
   }
 
   const ordenarPorCategoria = categoria => {
       obtenerOperacionesCategorias(categoria);
-      console.log("orden por categoria...");
   }
 
 
-// Formulario y validación con formik y Yup
-const formik = useFormik({
-  initialValues: {
-    orden: '',
-    categoria: ''
-  },
-  onSubmit: valores => {
+  // Formulario y validación con formik y Yup
+  const formik = useFormik({
+    initialValues: {
+      orden: '',
+      categoria: ''
+    },
+    onSubmit: valores => {
 
-  }
-});
-
-
+    }
+  });
   
   return ( 
     <Layout>
@@ -97,7 +96,7 @@ const formik = useFormik({
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="orden"
                         value={formik.values.orden}
-                        onChange={formik.handleChange}
+                        onChange={e => {  formik.handleChange(e); ordenarPorFecha() }}
                     >
                           <option value="Fecha" defaultValue>Fecha</option>
                           <option value="Categoría">Categoría</option>
@@ -126,7 +125,7 @@ const formik = useFormik({
                             id="categoria"
                             placeholder="Categoria"
                             value={formik.values.categoria}
-                            onChange={formik.handleChange}
+                            onChange={e => {  formik.handleChange(e); ordenarPorCategoria(e.target.value) }}
                         >
                               <option value="" defaultValue disabled hidden>Categoría</option>
                               <option value="Alimentos">Alimentos</option>
