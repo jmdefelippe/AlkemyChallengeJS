@@ -1,12 +1,15 @@
 import React, { useContext, useEffect } from 'react';
-import Layout from '../components/Layout';
+import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
+
 import * as Yup from 'yup';
+
+import Alerta from '../components/Alerta';
+import Layout from '../components/Layout';
+import Swal from 'sweetalert2';
+
 import authContext from '../context/auth/authContext';
 import operacionContext from '../context/operaciones/operacionContext';
-import Alerta from '../components/Alerta';
-import Swal from 'sweetalert2';
-import { useRouter } from 'next/router';
 
 const editarOperacion = () => {
   
@@ -37,7 +40,7 @@ const editarOperacion = () => {
   // Formulario y validación con formik y Yup
   const formik = useFormik({
       initialValues: {
-_id: operacion[0]._id,
+        _id: operacion[0]._id,
         concepto: operacion[0].concepto,
         monto: operacion[0].monto,
         fecha: operacion[0].fecha,
@@ -170,8 +173,9 @@ _id: operacion[0]._id,
                                   onChange={formik.handleChange}
                               >
                                     <option value="" defaultValue disabled hidden>Categoría</option>
+                                    <option value="Regalo">Regalo</option>
                                     <option value="Sueldo">Sueldo</option>
-                                    <option value="Donación">Donación</option>
+                                    <option value="Préstamo">Préstamo</option>
                                    
 
                               </select>
@@ -200,9 +204,13 @@ _id: operacion[0]._id,
                               >
                                     <option value="" defaultValue disabled hidden>Categoría</option>
                                     
-                                    <option value="Alimentos">Alimentos</option>
-                                    <option value="Impuestos">Impuestos</option>
+                                    <option value="Alimentos y bebidas">Alimentos y bebidas</option>
                                     <option value="Artículos de limpieza">Artículos de limpieza</option>
+                                    <option value="Esparcimiento">Esparcimiento</option>
+                                    <option value="Servicios">Servicios</option>
+                                    <option value="Perfumería">Perfumería</option>
+                                    <option value="Transporte">Transporte</option>
+                                    <option value="Vestimenta">Vestimenta</option>
 
                               </select>
 

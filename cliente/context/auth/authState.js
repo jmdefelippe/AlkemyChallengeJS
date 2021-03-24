@@ -35,19 +35,32 @@ const AuthState = ({children}) => {
         
         try {
             const respuesta = await clienteAxios.post('/api/usuarios', datos);
+            
+            const alerta = {
+                msg: respuesta.data.msg,
+                categoria: 'alerta-ok'
+            };
+
             dispatch({
                 type: REGISTRO_EXITOSO,
-                payload: respuesta.data.msg
+                payload: alerta
             });
 
             // obtener el usuario
-            //usuarioAutenticado();
+            usuarioAutenticado();
         } catch (error) {
+            // console.log(error.response.data.msg);
+            const alerta = {
+                msg: error.response.data.msg,
+                categoria: 'alerta-error'
+            };
+
             dispatch({
                 type: REGISTRO_ERROR,
-                payload: error.response.data.msg
+                payload: alerta
             })
         }
+
         // Limpia la alerta después de 3 segundos
         setTimeout(() => {
             dispatch({
@@ -66,9 +79,15 @@ const AuthState = ({children}) => {
                 payload: respuesta.data.token
             })
         } catch (error) {
+            // console.log(error.response.data.msg);
+            const alerta = {
+                msg: error.response.data.msg,
+                categoria: 'alerta-error'
+            };
+
             dispatch({
                 type: LOGIN_ERROR,
-                payload: error.response.data.msg
+                payload: alerta
             })
         }
 
@@ -78,6 +97,9 @@ const AuthState = ({children}) => {
                 type: OCULTAR_ALERTA
             })
         }, 3000);
+            
+            
+            
     }
 
     // Retorne el Usuario autenticado en base al JWT

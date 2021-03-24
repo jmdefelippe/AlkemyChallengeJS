@@ -4,7 +4,6 @@ const cors = require('cors');
 
 const usuarios = require('./routes/usuarios');
 const auth = require('./routes/auth');
-const categorias = require('./routes/categorias');
 const operaciones = require('./routes/operaciones');
 
 // crear el servidor
@@ -25,11 +24,9 @@ const port = process.env.PORT || 4000;
 // Habilitar leer los valores de un body
 app.use( express.json() );
 
-
 // Rutas de la app
 app.use('/api/usuarios', usuarios);
 app.use('/api/auth', auth);
-app.use('/api/categorias', categorias );
 app.use('/api/operaciones', operaciones );
 
 // Arrancar la app

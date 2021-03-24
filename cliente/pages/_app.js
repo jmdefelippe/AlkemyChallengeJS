@@ -1,4 +1,7 @@
 import React from 'react';
+
+import '../index.css';
+
 import AlertaState from '../context/alertas/alertaState';
 import AuthState from '../context/auth/authState';
 import AppState from '../context/app/appState';

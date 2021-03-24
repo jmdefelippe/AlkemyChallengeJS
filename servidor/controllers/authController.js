@@ -40,7 +40,6 @@ exports.autenticarUsuario = async (req, res, next) => {
         res.status(401).json({msg: "Password Incorrecto"});
         return next();
     }
-
     
 }
 

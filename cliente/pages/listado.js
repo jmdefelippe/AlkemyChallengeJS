@@ -1,18 +1,17 @@
-import React, { useContext, useEffect, useState } from 'react';
-import Layout from '../components/Layout';
-import Alerta from '../components/Alerta';
-import Operacion from '../components/Operacion';
-import authContext from '../context/auth/authContext';
-import operacionContext from '../context/operaciones/operacionContext';
-import alertaContext from '../context/alertas/alertaContext';
-
-import Link from 'next/link';
+import React, { useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
-
 import { useFormik } from 'formik';
 
+import Alerta from '../components/Alerta';
+import Layout from '../components/Layout';
+import Operacion from '../components/Operacion';
+
+import alertaContext from '../context/alertas/alertaContext';
+import authContext from '../context/auth/authContext';
+import operacionContext from '../context/operaciones/operacionContext';
 
 const Listado = () => {
+  
   // routing 
   const router = useRouter();
 
@@ -50,10 +49,6 @@ const Listado = () => {
 
   }, [mensaje]);
  
-
-  // revisar si operaciones tiene contenido
-  //if(operaciones.length === 0) return <p>No hay operaciones</p>;
-
   const ordenarPorFecha = () => {
     obtenerOperaciones();
   }
@@ -62,7 +57,6 @@ const Listado = () => {
       obtenerOperacionesCategorias(categoria);
   }
 
-
   // Formulario y validación con formik y Yup
   const formik = useFormik({
     initialValues: {
@@ -70,20 +64,19 @@ const Listado = () => {
       categoria: ''
     },
     onSubmit: valores => {
-
     }
   });
   
   return ( 
     <Layout>
-        
+
         <div className="md:w-4/5 xl:w-5/5 mx-auto">
 
             <h3 className="text-3xl font-sans font-bold text-black-500 text-center my-4"
             >Listado de operaciones de
                 <span className="text-blue-500"> {usuario.nombre}</span>
             </h3>
-
+            
             <div className="flex gap-10">
                 
                 <div className="mb-4">
@@ -110,8 +103,6 @@ const Listado = () => {
                     ) : null }
                 </div>
 
-                
-
                 { (formik.values.orden === 'Categoría') ? (
 
                     <div className="mb-4">
@@ -128,11 +119,17 @@ const Listado = () => {
                             onChange={e => {  formik.handleChange(e); ordenarPorCategoria(e.target.value) }}
                         >
                               <option value="" defaultValue disabled hidden>Categoría</option>
-                              <option value="Alimentos">Alimentos</option>
+                              <option value="Alimentos y bebidas">Alimentos y bebidas</option>
                               <option value="Artículos de limpieza">Artículos de limpieza</option>
-                              <option value="Impuestos">Impuestos</option>
-                              <option value="Donación">Donación</option>
+                              <option value="Esparcimiento">Esparcimiento</option>
+                              <option value="Regalo">Regalo</option>
+                              <option value="Servicios">Servicios</option>
                               <option value="Sueldo">Sueldo</option>
+                              <option value="Perfumería">Perfumería</option>
+                              <option value="Préstamo">Préstamo</option>
+                              <option value="Transporte">Transporte</option>
+                              <option value="Vestimenta">Vestimenta</option>
+
                         </select>
 
                         { formik.touched.categoria && formik.errors.categoria ? (
@@ -147,24 +144,17 @@ const Listado = () => {
 
             </div>
 
-{/*
-            <div className="flex justify-center mb-4">
-                <button className="border rounded-lg hover:bg-black bg-blue-400 px-5 py-3 mr-5 text-white font-bold uppercase"
-                    onClick={() => ordenarPorFecha() }
-                >Por fecha</button>
-                            
-                <button className="border rounded-lg hover:bg-black bg-blue-400 px-5 py-3 text-white font-bold uppercase"
-                    onClick={() => ordenarPorCategoria('Impuestos') }
-                >Por categoría</button>
-            </div>
-*/}
-              
-            <div className="bg-gray-300 rounded-lg px-5 py-2">
-              {operaciones.map(operacion => 
-                  <div key={operacion._id} className=""> <Operacion operacion={operacion}/></div>
-              )}
-            </div>
-            
+            { (operaciones.length === 0) ?
+                (<p className="text-2xl font-sans font-bold text-blue-500 text-center my-4">No hay operaciones</p>
+                ) : (  
+
+                    <div className="bg-gray-300 rounded-lg px-5 py-2">
+                      {operaciones.map(operacion => 
+                          <div key={operacion._id} className=""> <Operacion operacion={operacion}/></div>
+                      )}
+                    </div>
+            )}
+        
         </div>
 
     </Layout>

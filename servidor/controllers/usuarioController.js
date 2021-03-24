@@ -9,7 +9,6 @@ exports.nuevoUsuario = async (req, res) => {
     if(!errores.isEmpty()) {
         return res.status(400).json({errores: errores.array()});
     }
-
     
     // Verificar si el usuario ya estuvo registrado
     const { email, password } = req.body;

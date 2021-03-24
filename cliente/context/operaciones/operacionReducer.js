@@ -67,18 +67,6 @@ export default (state, action) => {
                 ...state,
                 operacion: null
             }
-        case CALCULAR_BALANCE:
-            return {
-                ...state,
-                balance: state.operaciones.reduce( (monto, operacion) => {
-                    if (typeof monto !== 'number') {
-                       monto = monto.monto;
-                   }
-                  if (operacion.tipo === 'Ingreso') monto += operacion.monto;
-                  if (operacion.tipo === 'Egreso') monto -= operacion.monto;
-                  return monto;
-                }, 0)
-            }
         case OPERACIONES_CATEGORIAS:
             return {
                 ...state,
@@ -107,7 +95,18 @@ export default (state, action) => {
                     return monto;
                 }, 0)
             }
-
+        case CALCULAR_BALANCE:
+            return {
+                ...state,
+                balance: state.operaciones.reduce( (monto, operacion) => {
+                    if (typeof monto !== 'number') {
+                        monto = monto.monto;
+                    }
+                    if (operacion.tipo === 'Ingreso') monto += operacion.monto;
+                    if (operacion.tipo === 'Egreso') monto -= operacion.monto;
+                    return monto;
+                }, 0)
+            }
 
         default:
             return state;

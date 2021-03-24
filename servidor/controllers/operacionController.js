@@ -31,6 +31,7 @@ exports.crearOperacion = async (req, res) => {
 
 // obtiene todos los operaciones del usuario actual
 exports.obtenerOperaciones = async (req, res) => {
+
     try {
         const operaciones = await Operacion.find({ usuario: req.usuario.id }).sort({ fecha: -1 });
         res.json({ operaciones });            
@@ -38,10 +39,12 @@ exports.obtenerOperaciones = async (req, res) => {
         console.log(error);
         res.status(500).send('Hubo un error');
     }
+
 }
 
 // actualiza un operacion
 exports.actualizarOperacion = async(req, res) => {
+    
     // revisar si hay errores
     const errores = validationResult(req);
     if ( !errores.isEmpty() ) {
@@ -69,9 +72,9 @@ exports.actualizarOperacion = async(req, res) => {
     }
 
     // agregar tantos if como campos haya
-    console.log(req.params);
-//    console.log(req);
-console.log(req.body);
+
+    // console.log(req.params);
+    // console.log(req.body);
 
     try {
         
@@ -87,15 +90,10 @@ console.log(req.body);
         if (operacion.usuario.toString() !== req.usuario.id) {
             return res.status(401).json({ msg: 'No autorizado '});
         }
-
         
         // actualizar
         operacion = await Operacion.findByIdAndUpdate({ _id: req.params.id }, { $set:
         nuevaOperacion }, { new: true });
-
-
-        // actualizar
-//        operacion = await Operacion.findOneAndUpdate({ _id: req.params.id }, nuevaOperacion, { new: true });
 
         res.json({operacion});
 
@@ -108,6 +106,7 @@ console.log(req.body);
 
 // elimina un operacion por su id
 exports.eliminarOperacion = async (req, res) => {
+    
     try {
         // revisar el ID
         let operacion = await Operacion.findById(req.params.id);
@@ -129,4 +128,5 @@ exports.eliminarOperacion = async (req, res) => {
         console.log(error);
         res.status(500).send('Error en el servidor')
     }
+    
 }

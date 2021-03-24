@@ -1,13 +1,18 @@
 import React, {useContext, useEffect } from 'react';
-import Link from 'next/link';
-import Layout from '../components/Layout';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import authContext from '../context/auth/authContext';
-import Alerta from '../components/Alerta';
 import { useRouter } from 'next/router';
+import { useFormik } from 'formik';
+
+import Link from 'next/link';
+import * as Yup from 'yup';
+
+import Alerta from '../components/Alerta';
+import Layout from '../components/Layout';
+
+import alertaContext from '../context/alertas/alertaContext';
+import authContext from '../context/auth/authContext';
 
 const Login = () => {
+    
     // Next router
     const router = useRouter();
 
@@ -15,13 +20,21 @@ const Login = () => {
     const AuthContext = useContext(authContext);
     const { mensaje, autenticado, iniciarSesion } = AuthContext;
 
+    // extraer los valores del context
+    const AlertaContext = useContext(alertaContext);
+    const { alerta, mostrarAlerta } = AlertaContext;
+
     useEffect(() => {
       if(autenticado) {
         router.push('/');
       } else {
         router.push('/login');
       }
-    }, [autenticado]);
+
+      if(mensaje) {
+        mostrarAlerta(mensaje.msg, mensaje.categoria);
+      }
+    }, [autenticado, mensaje]);
 
     // Formulario y validación con formik y Yup
     const formik = useFormik({
@@ -113,6 +126,8 @@ const Login = () => {
                             </Link>
                           </div>
                       </div>
+
+                      { alerta ? ( <div className={`alerta ${alerta.categoria}`}> {alerta.msg} </div> ): null }
 
                   </form>
               </div>

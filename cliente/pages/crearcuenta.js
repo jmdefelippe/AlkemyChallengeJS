@@ -1,14 +1,22 @@
 import React, { useContext, useEffect } from 'react';
-import Link from 'next/link';
-import Layout from '../components/Layout';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import authContext from '../context/auth/authContext';
-import Alerta from '../components/Alerta'
 import { useRouter } from 'next/router';
+import { useFormik } from 'formik';
+
+import Link from 'next/link';
+import * as Yup from 'yup';
+
+import Alerta from '../components/Alerta'
+import Layout from '../components/Layout';
 import Swal from 'sweetalert2';
 
+import alertaContext from '../context/alertas/alertaContext';
+import authContext from '../context/auth/authContext';
+
 const CrearCuenta = () => {
+
+  // extraer los valores del context
+  const AlertaContext = useContext(alertaContext);
+  const { alerta, mostrarAlerta } = AlertaContext;
 
   // Acceder al state
   const AuthContext = useContext(authContext);
@@ -16,12 +24,16 @@ const CrearCuenta = () => {
 
   // Next router
   const router = useRouter();
-
+  
   useEffect(() => {
+    
     if(autenticado) {
       router.push('/');
     }
-  }, [autenticado]);
+    if(mensaje) {
+      mostrarAlerta(mensaje.msg, mensaje.categoria);
+    }
+  }, [autenticado, mensaje]);
 
 
   // Formulario y validación con formik y Yup
@@ -32,6 +44,7 @@ const CrearCuenta = () => {
         password: '',
         confirmarPassword: ''
       },
+      
       validationSchema: Yup.object({
           nombre: Yup.string()
                     .required('El Nombre es Obligatorio'),
@@ -46,28 +59,31 @@ const CrearCuenta = () => {
                     .min(6, 'El password debe contener al menos 6 caracteres')
                     .oneOf([Yup.ref('password'), null], 'Los Passwords no coinciden')
       }),
+     
       onSubmit: valores => {
           registrarUsuario(valores);
-
+/*
           // mostrar mensaje ok
           Swal.fire({
             position: 'center',
             icon: 'success',
-            title: 'Operación agregada correctamente',
+            title: 'Cuenta creada',
             width: 400,
             height: 400,
             timer: 2000,
             confirmButtonColor: '#60A5FA',
             confirmButtonText: 'Ok!',
           })
+          
+*/
           router.push('/login');
-
-      }
+          
+    }
   });
-
 
   return ( 
     <Layout>
+
         <div className="md:w-4/5 xl:w-3/5 mx-auto">
           <h2 className="text-3xl font-sans font-bold text-black-500 text-center my-4">Crear Cuenta</h2>
 
@@ -176,7 +192,11 @@ const CrearCuenta = () => {
                           </div>
                       </div>
 
+                      { alerta ? ( <div className={`alerta ${alerta.categoria}`}> {alerta.msg} </div> ): null }
+
                   </form>
+                  
+
               </div>
           </div>
         </div>

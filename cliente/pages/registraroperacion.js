@@ -1,16 +1,21 @@
 import React, { useContext, useEffect } from 'react';
-import Layout from '../components/Layout';
+import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
+
 import * as Yup from 'yup';
+import Swal from 'sweetalert2';
+
+import Alerta from '../components/Alerta';
+import Layout from '../components/Layout';
+
 import authContext from '../context/auth/authContext';
 import operacionContext from '../context/operaciones/operacionContext';
-import Alerta from '../components/Alerta';
-import Swal from 'sweetalert2';
-import { useRouter } from 'next/router';
 
 const RegistrarOperacion = () => {
-// Next router
-const router = useRouter();
+  
+  // Next router
+  const router = useRouter();
+  
   // Acceder al state
   const AuthContext = useContext(authContext);
   const { mensaje, usuarioAutenticado } = AuthContext;
@@ -26,8 +31,7 @@ const router = useRouter();
     } else {
       router.push('/login');
     }
-  
-    
+      
     // eslint-disable-next-line
   }, []);
 
@@ -55,7 +59,7 @@ const router = useRouter();
       }),
       onSubmit: valores => {
           agregarOperacion(valores);
-                    
+
           // mostrar mensaje ok
           Swal.fire({
             position: 'center',
@@ -67,6 +71,7 @@ const router = useRouter();
             confirmButtonColor: '#60A5FA',
             confirmButtonText: 'Ok!',
           })
+
           router.push('/listado');
           // reiniciar el form
       }
@@ -179,8 +184,6 @@ const router = useRouter();
                           ) : null }
                       </div>
 
-
-
                       { ((formik.values.tipo === 'Ingreso') || (formik.values.tipo === 'ingreso')) ? (
 
                           <div className="mb-4">
@@ -197,10 +200,9 @@ const router = useRouter();
                                   onChange={formik.handleChange}
                               >
                                     <option value="" defaultValue disabled hidden>Categoría</option>
+                                    <option value="Regalo">Regalo</option>
                                     <option value="Sueldo">Sueldo</option>
-                                    <option value="Donación">Donación</option>
-                                  
-
+                                    <option value="Préstamo">Préstamo</option>
                               </select>
 
                               { formik.touched.categoria && formik.errors.categoria ? (
@@ -230,10 +232,13 @@ const router = useRouter();
                               >
                                     <option value="" defaultValue disabled hidden>Categoría</option>
                                     
-                                    <option value="Alimentos">Alimentos</option>
-                                    <option value="Impuestos">Impuestos</option>
+                                    <option value="Alimentos y bebidas">Alimentos y bebidas</option>
                                     <option value="Artículos de limpieza">Artículos de limpieza</option>
-
+                                    <option value="Esparcimiento">Esparcimiento</option>
+                                    <option value="Servicios">Servicios</option>
+                                    <option value="Perfumería">Perfumería</option>
+                                    <option value="Transporte">Transporte</option>
+                                    <option value="Vestimenta">Vestimenta</option>
                               </select>
 
                               { formik.touched.categoria && formik.errors.categoria ? (
@@ -244,42 +249,6 @@ const router = useRouter();
                               ) : null }
                           </div>
                       ) : ( null ) }
-
-
-
-
-{/*
-                      <div className="mb-4">
-                          <label 
-                            className="block text-black text-sm font-bold mb-2"
-                            htmlFor="categoria"
-                          >Categoria</label>
-                          <select
-                              type="text"
-                              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                              id="categoria"
-                              placeholder="Categoria"
-                              value={formik.values.categoria}
-                              onChange={formik.handleChange}
-                          >
-                                <option value="" defaultValue disabled hidden>Categoría</option>
-                                <option value="Sueldo">Sueldo</option>
-                                <option value="Donación">Donación</option>
-                                <option value="Alimentos">Alimentos</option>
-                                <option value="Impuestos">Impuestos</option>
-                                <option value="Artículos de limpieza">Artículos de limpieza</option>
-
-                          </select>
-
-                          { formik.touched.categoria && formik.errors.categoria ? (
-                            <div className="my-2 bg-gray-200 border-l-4 border-red-500 text-red-700 p-4">
-                                <p className="font-bold">Error</p>
-                                <p>{formik.errors.categoria} </p>
-                            </div>
-                          ) : null }
-                      </div>
-*/}
-
 
                       <input 
                         type="submit"

@@ -56,13 +56,26 @@ const Operacion = ({ operacion }) => {
             if (result.isConfirmed) {
                 // pasarlo al action
                 eliminarOperacion(id);
+
+                Swal.fire({
+                    position: 'center',
+            icon: 'success',
+            title: 'Operación eliminada correctamente',
+            width: 400,
+            height: 400,
+            timer: 2000,
+            confirmButtonColor: '#60A5FA',
+            confirmButtonText: 'Ok!',
+                })
+
+
             }
         })
     }
 
     return (
         
-        <div className="flex mb-2 items-center">
+        <div className="flex my-2 items-center">
             <p className="flex-1 font-bold text-blue-500 uppercase">{tipo}</p>
             <p className="flex-1">{categoria}</p>
             <p className="flex-1 font-bold">{concepto}</p>
