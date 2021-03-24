@@ -27,7 +27,7 @@ export default (state, action) => {
         case OCULTAR_ALERTA:
             return {
                 ...state,
-                mensaje: null
+                mensaje: {}
             } 
         case USUARIO_AUTENTICADO:
             return {

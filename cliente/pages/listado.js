@@ -28,8 +28,6 @@ const Listado = () => {
   const alertasContext = useContext(alertaContext);
   const { alerta, mostrarAlerta } = alertasContext;
 
-  //const [ordenarFecha, setOrdenarFecha] = useState(true);
-
   useEffect(() => {
     const token = localStorage.getItem('token');
 
@@ -39,11 +37,13 @@ const Listado = () => {
       router.push('/login');
     }
 
+    
+/*
     // si hay un error
     if (mensaje) {
       mostrarAlerta(mensaje.msg, mensaje.categoria);
     }
-
+*/
     obtenerOperaciones();
     // eslint-disable-next-line
 
@@ -77,6 +77,8 @@ const Listado = () => {
                 <span className="text-blue-500"> {usuario.nombre}</span>
             </h3>
             
+            { mensaje && <Alerta msg={mensaje.msg} categoria={mensaje.categoria} /> }
+
             <div className="flex gap-10">
                 
                 <div className="mb-4">

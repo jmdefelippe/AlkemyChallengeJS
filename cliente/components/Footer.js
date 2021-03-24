@@ -1,9 +1,4 @@
-import React, { useContext, useEffect } from 'react';
-import Link from 'next/link';
-import authContext from '../context/auth/authContext';
-import appContext from '../context/app/appContext';
-import { useRouter } from 'next/router';
-
+import React from 'react';
 
 const Footer = ({ title }) => {
 

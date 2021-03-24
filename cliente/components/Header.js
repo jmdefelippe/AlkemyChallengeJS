@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import Link from 'next/link';
 import authContext from '../context/auth/authContext';
-import appContext from '../context/app/appContext';
 import { useRouter } from 'next/router';
 
 const Header = () => {
@@ -13,17 +12,12 @@ const Header = () => {
     const AuthContext = useContext( authContext );
     const { usuario, usuarioAutenticado,  cerrarSesion } = AuthContext;
 
-      // Context de la aplicación
-    const AppContext = useContext( appContext );
-    const { limpiarState } = AppContext;
-
     useEffect(() => {
         usuarioAutenticado();
     }, []);
 
     const redireccionar = () => {
         router.push('/');
-        limpiarState();
     }
 
     const mostrarMenu = () => {

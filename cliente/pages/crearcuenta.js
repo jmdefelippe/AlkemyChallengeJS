@@ -9,19 +9,19 @@ import Alerta from '../components/Alerta'
 import Layout from '../components/Layout';
 import Swal from 'sweetalert2';
 
-import alertaContext from '../context/alertas/alertaContext';
+//import alertaContext from '../context/alertas/alertaContext';
 import authContext from '../context/auth/authContext';
 
 const CrearCuenta = () => {
 
-  // extraer los valores del context
+/*  // extraer los valores del context
   const AlertaContext = useContext(alertaContext);
   const { alerta, mostrarAlerta } = AlertaContext;
-
+*/
   // Acceder al state
   const AuthContext = useContext(authContext);
   const { mensaje, autenticado, registrarUsuario } = AuthContext;
-
+  
   // Next router
   const router = useRouter();
   
@@ -30,11 +30,29 @@ const CrearCuenta = () => {
     if(autenticado) {
       router.push('/');
     }
+
+    if (mensaje.categoria === 'alerta-ok') {
+      
+      // mostrar mensaje ok
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Cuenta creada',
+        width: 400,
+        height: 400,
+        timer: 3000,
+        confirmButtonColor: '#60A5FA',
+        confirmButtonText: 'Ok!',
+      })
+
+      router.push('/login');
+    }
+/*    
     if(mensaje) {
       mostrarAlerta(mensaje.msg, mensaje.categoria);
     }
+*/
   }, [autenticado, mensaje]);
-
 
   // Formulario y validación con formik y Yup
   const formik = useFormik({
@@ -76,7 +94,8 @@ const CrearCuenta = () => {
           })
           
 */
-          router.push('/login');
+
+          //router.push('/login');
           
     }
   });
@@ -192,11 +211,11 @@ const CrearCuenta = () => {
                           </div>
                       </div>
 
-                      { alerta ? ( <div className={`alerta ${alerta.categoria}`}> {alerta.msg} </div> ): null }
+                      { (mensaje.categoria === 'alerta-error') && <Alerta msg={mensaje.msg} categoria={mensaje.categoria} /> }
+                      {/* alerta ? ( <div className={`alerta ${alerta.categoria}`}> {alerta.msg} </div> ): null */}
 
                   </form>
                   
-
               </div>
           </div>
         </div>

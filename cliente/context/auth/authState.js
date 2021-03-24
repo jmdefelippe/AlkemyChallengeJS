@@ -23,7 +23,7 @@ const AuthState = ({children}) => {
         token: typeof window !== 'undefined' ? localStorage.getItem('token') : '',
         autenticado: null,
         usuario: null,
-        mensaje: null,
+        mensaje: {},
         cargando: null
     }
 
@@ -66,7 +66,7 @@ const AuthState = ({children}) => {
             dispatch({
                 type: OCULTAR_ALERTA
             })
-        }, 3000);
+        }, 3000); 
     }
 
     // Autenticar Usuarios
