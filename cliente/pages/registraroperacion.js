@@ -18,10 +18,10 @@ const RegistrarOperacion = () => {
   
   // Acceder al state
   const AuthContext = useContext(authContext);
-  const { mensaje, usuarioAutenticado } = AuthContext;
+  const { usuarioAutenticado } = AuthContext;
 
   const OperacionContext = useContext(operacionContext);
-  const { agregarOperacion } = OperacionContext;
+  const { mensaje, agregarOperacion } = OperacionContext;
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -31,9 +31,13 @@ const RegistrarOperacion = () => {
     } else {
       router.push('/login');
     }
+   
+    if (mensaje.categoria === 'alerta-ok') {
+      router.push('/listado');
+    }
       
     // eslint-disable-next-line
-  }, []);
+  }, [mensaje]);
 
   // Formulario y validación con formik y Yup
   const formik = useFormik({
@@ -59,21 +63,6 @@ const RegistrarOperacion = () => {
       }),
       onSubmit: valores => {
           agregarOperacion(valores);
-
-          // mostrar mensaje ok
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Operación agregada correctamente',
-            width: 400,
-            height: 400,
-            timer: 2000,
-            confirmButtonColor: '#60A5FA',
-            confirmButtonText: 'Ok!',
-          })
-
-          router.push('/listado');
-          // reiniciar el form
       }
   });
 
@@ -83,8 +72,6 @@ const RegistrarOperacion = () => {
     <Layout>
         <div className="md:w-4/5 xl:w-3/5 mx-auto">
           <h2 className="text-3xl font-sans font-bold text-black-500 text-center my-4">Registrar Operación</h2>
-
-          { mensaje && <Alerta />}
 
           <div className="flex justify-center mt-5">
               <div className="w-full max-w-lg">
@@ -255,6 +242,9 @@ const RegistrarOperacion = () => {
                         className="bg-blue-400 hover:bg-gray-900 w-full p-2 text-white uppercase font-bold"
                         value="Registrar Operación"
                       />
+
+                      { (mensaje.categoria === 'alerta-error') && <Alerta msg={mensaje.msg} categoria={mensaje.categoria} /> }
+
                   </form>
               </div>
           </div>

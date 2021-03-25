@@ -18,12 +18,12 @@ const editarOperacion = () => {
 
   // Acceder al state
   const AuthContext = useContext(authContext);
-  const { mensaje, usuarioAutenticado } = AuthContext;
+  const { usuarioAutenticado } = AuthContext;
 
   const OperacionContext = useContext(operacionContext);
-  let { actualizarOperacion, operacion } = OperacionContext;
+  let { mensaje, operacion, actualizarOperacion } = OperacionContext;
 
-  operacion = operacion || [{}];
+  //operacion = operacion || [{}];
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -33,9 +33,13 @@ const editarOperacion = () => {
     } else {
       router.push('/login');
     }
+
+    if ((mensaje.categoria === 'alerta-ok') || ( operacion[0]._id === undefined ) ) {
+      router.push('/listado');
+    }
   
     // eslint-disable-next-line
-  }, []);
+  }, [mensaje, operacion]);
 
   // Formulario y validación con formik y Yup
   const formik = useFormik({
@@ -62,21 +66,6 @@ const editarOperacion = () => {
       }),
       onSubmit: valores => {
           actualizarOperacion(valores);
-
-          // mostrar mensaje ok
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Operación editada correctamente',
-            width: 400,
-            height: 400,
-            timer: 2000,
-            confirmButtonColor: '#60A5FA',
-            confirmButtonText: 'Ok!',
-          })
-          router.push('/listado');
-          // reiniciar el form
-
       }
   });
 
@@ -229,6 +218,9 @@ const editarOperacion = () => {
                         className="bg-blue-400 hover:bg-gray-900 w-full p-2 text-white uppercase font-bold"
                         value="Editar Operación"
                       />
+
+                      { (mensaje.categoria === 'alerta-error') && <Alerta msg={mensaje.msg} categoria={mensaje.categoria} /> }
+
                   </form>
               </div>
           </div>

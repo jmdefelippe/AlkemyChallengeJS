@@ -24,11 +24,15 @@
     "/_polyfills": [
       "static/runtime/polyfills.js"
     ],
+    "/crearcuenta": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
     "/index": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/login": [
+    "/registraroperacion": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]

@@ -6,7 +6,6 @@ import Alerta from '../components/Alerta';
 import Layout from '../components/Layout';
 import Operacion from '../components/Operacion';
 
-import alertaContext from '../context/alertas/alertaContext';
 import authContext from '../context/auth/authContext';
 import operacionContext from '../context/operaciones/operacionContext';
 
@@ -24,10 +23,7 @@ const Listado = () => {
   // extraer operaciones de state inicial
   const operacionesContext = useContext(operacionContext);
   const { operaciones, mensaje, obtenerOperaciones, obtenerOperacionesCategorias } = operacionesContext;
-
-  const alertasContext = useContext(alertaContext);
-  const { alerta, mostrarAlerta } = alertasContext;
-
+ 
   useEffect(() => {
     const token = localStorage.getItem('token');
 
@@ -37,16 +33,8 @@ const Listado = () => {
       router.push('/login');
     }
 
-    
-/*
-    // si hay un error
-    if (mensaje) {
-      mostrarAlerta(mensaje.msg, mensaje.categoria);
-    }
-*/
     obtenerOperaciones();
     // eslint-disable-next-line
-
   }, [mensaje]);
  
   const ordenarPorFecha = () => {
@@ -77,7 +65,7 @@ const Listado = () => {
                 <span className="text-blue-500"> {usuario.nombre}</span>
             </h3>
             
-            { mensaje && <Alerta msg={mensaje.msg} categoria={mensaje.categoria} /> }
+            { (mensaje.categoria === 'alerta-error') && <Alerta msg={mensaje.msg} categoria={mensaje.categoria} /> }
 
             <div className="flex gap-10">
                 

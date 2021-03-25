@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
-import operacionContext from '../context/operaciones/operacionContext';
-import Swal from 'sweetalert2';
+import React, { useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import FormEdicionOperacion from '../pages/editaroperacion';
+
+import Swal from 'sweetalert2';
+
+import operacionContext from '../context/operaciones/operacionContext';
 
 const Operacion = ({ operacion }) => {
 
@@ -11,24 +12,31 @@ const Operacion = ({ operacion }) => {
 
     // obtener la función del context de operaciones
     const operacionesContext = useContext(operacionContext);
-    const { eliminarOperacion, obtenerOperaciones, actualizarOperacion, operacionActual, } = operacionesContext;
+    const { mensaje, eliminarOperacion, operacionActual, } = operacionesContext;
 
     const { _id, concepto, monto, tipo, categoria } = operacion;
     let { fecha } = operacion;
 
     fecha = operacion.fecha.substring(0,10);
     
+    useEffect(() => {
+        if (mensaje.categoria === 'alerta-ok') {
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: mensaje.msg,
+                width: 400,
+                timer: 3000,
+                confirmButtonColor: '#60A5FA',
+                confirmButtonText: 'Ok!',
+            })
+        }
+    }, [mensaje]);
 
     // funcion que redirige de forma programada
     const seleccionarOperacion = operacion => {
-
-        console.log("editando...");
-        console.log(operacion);
-
         operacionActual(operacion);
-
         router.push('/editaroperacion');
-    
     }
 
     // confirmar si desea eliminarlo
@@ -44,7 +52,6 @@ const Operacion = ({ operacion }) => {
             confirmButtonText: 'Sí, eliminar!',
             cancelButtonText: 'Cancelar',
             width: 400,
-            height: 400,
             showClass: {
                 popup: 'animate__animated animate__fadeInDown'
               },
@@ -54,23 +61,10 @@ const Operacion = ({ operacion }) => {
 
         }).then((result) => {
             if (result.isConfirmed) {
-                // pasarlo al action
                 eliminarOperacion(id);
-
-                Swal.fire({
-                    position: 'center',
-            icon: 'success',
-            title: 'Operación eliminada correctamente',
-            width: 400,
-            height: 400,
-            timer: 2000,
-            confirmButtonColor: '#60A5FA',
-            confirmButtonText: 'Ok!',
-                })
-
-
             }
         })
+        
     }
 
     return (

@@ -6,7 +6,9 @@ import {
     FORMULARIO_OPERACION,
     OBTENER_OPERACIONES,
     AGREGAR_OPERACION,
+    OPERACION_EXITOSA,
     OPERACION_ERROR,
+    OCULTAR_ALERTA,
     VALIDAR_FORMULARIO,
     OPERACION_ACTUAL,
     ELIMINAR_OPERACION,
@@ -27,8 +29,8 @@ const OperacionState = props => {
         operaciones : [],
         nuevaOperacion : false,
         errorformulario: false,
-        operacion: null,
-        mensaje: null,
+        operacion: [{}],
+        mensaje: {},
         balance: 0,
         ingresos: 0,
         egresos: 0
@@ -70,7 +72,17 @@ const OperacionState = props => {
 
         try {
             const resultado = await clienteAxios.post('/api/operaciones', operacion);
-            console.log(resultado);
+            
+            const alerta = {
+                msg: 'Operación agregada exitosamente',
+                categoria: 'alerta-ok'
+            }
+            
+            dispatch({
+                type: OPERACION_EXITOSA,
+                payload: alerta
+            })
+
             // insertar el operacion en el state
             dispatch({
                 type: AGREGAR_OPERACION,
@@ -87,6 +99,12 @@ const OperacionState = props => {
             })
         }
 
+        // Limpia la alerta después de 3 segundos
+        setTimeout(() => {
+            dispatch({
+                type: OCULTAR_ALERTA
+            })
+        }, 3000); 
     }
 
     // validar el formulario por errores
@@ -107,10 +125,61 @@ const OperacionState = props => {
     // elimina un operacion
     const eliminarOperacion = async operacionId => {
         try {
+            
             await clienteAxios.delete(`/api/operaciones/${operacionId}`);
+            
+            const alerta = {
+                msg: 'Operación eliminada exitosamente',
+                categoria: 'alerta-ok'
+            }
+            
+            dispatch({
+                type: OPERACION_EXITOSA,
+                payload: alerta
+            })
+
             dispatch({
                 type: ELIMINAR_OPERACION,
                 payload: operacionId
+            })
+                        
+        } catch (error) {
+            const alerta = {
+                msg: 'Hubo un error',
+                categoria: 'alerta-error'
+            }
+            dispatch({
+                type: OPERACION_ERROR,
+                payload: alerta
+            })
+        }
+
+        // Limpia la alerta después de 3 segundos
+        setTimeout(() => {
+            dispatch({
+                type: OCULTAR_ALERTA
+            })
+        }, 3000); 
+    }
+
+    // edita o modifica una operacion
+    const actualizarOperacion = async operacion => {
+        try {
+            const resultado = await clienteAxios.put(`/api/operaciones/${operacion._id}`, operacion);
+            
+            const alerta = {
+                msg: 'Operación editada exitosamente',
+                categoria: 'alerta-ok'
+            }
+            
+            dispatch({
+                type: OPERACION_EXITOSA,
+                payload: alerta
+            })
+            
+            dispatch({
+                type: ACTUALIZAR_OPERACION,
+                payload: resultado.data.operacion
             })
         } catch (error) {
             const alerta = {
@@ -122,19 +191,13 @@ const OperacionState = props => {
                 payload: alerta
             })
         }
-    }
 
-    // edita o modifica una operacion
-    const actualizarOperacion = async operacion => {
-        try {
-            const resultado = await clienteAxios.put(`/api/operaciones/${operacion._id}`, operacion);
+        // Limpia la alerta después de 3 segundos
+        setTimeout(() => {
             dispatch({
-                type: ACTUALIZAR_OPERACION,
-                payload: resultado.data.operacion
+                type: OCULTAR_ALERTA
             })
-        } catch (error) {
-            console.log(error);
-        }
+        }, 3000); 
     }
 
     // elimina la operacion seleccionada

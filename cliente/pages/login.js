@@ -25,9 +25,6 @@ const Login = () => {
       } else {
         router.push('/login');
       }
-
-      
-
     }, [autenticado]);
 
     // Formulario y validación con formik y Yup

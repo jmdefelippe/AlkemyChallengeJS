@@ -2,6 +2,8 @@ import {
     FORMULARIO_OPERACION,
     OBTENER_OPERACIONES,
     AGREGAR_OPERACION,
+    OPERACION_EXITOSA,
+    OCULTAR_ALERTA,
     OPERACION_ERROR,
     VALIDAR_FORMULARIO,
     OPERACION_ACTUAL,
@@ -49,8 +51,15 @@ export default (state, action) => {
                 ...state,
                 operaciones: state.operaciones.filter(operacion => operacion._id !==
                 action.payload),
-                operacion: null
+                operacion: null,
+                alerta: action.payload
             }
+        case OCULTAR_ALERTA:
+            return {
+                ...state,
+                mensaje: {}
+            } 
+        case OPERACION_EXITOSA:
         case OPERACION_ERROR:
             return {
                 ...state,
