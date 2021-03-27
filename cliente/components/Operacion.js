@@ -69,7 +69,7 @@ const Operacion = ({ operacion }) => {
 
     return (
         
-        <div className="flex my-2 items-center">
+        <div className="flex flex-wrap my-2 items-center">
             <p className="flex-1 font-bold text-blue-500 uppercase">{tipo}</p>
             <p className="flex-1">{categoria}</p>
             <p className="flex-1 font-bold">{concepto}</p>
@@ -77,12 +77,12 @@ const Operacion = ({ operacion }) => {
             <p className="flex-1 italic">{fecha}</p>
         
             <img 
-                className="w-8 mr-5 cursor-pointer" src="/editar.png"
+                className="w-6 mr-5 cursor-pointer" src="/editar.png"
                 onClick={ () => seleccionarOperacion(_id) }
             />
 
             <img 
-                className="w-8 cursor-pointer" src="/eliminar.png"
+                className="w-6 cursor-pointer" src="/eliminar.png"
                 //onClick={() => eliminar() }
                 onClick={() => confirmarEliminarOperacion(_id)}
             />

@@ -59,6 +59,8 @@ exports.actualizarOperacion = async(req, res) => {
         nuevaOperacion.concepto = concepto;
     }
 
+    // nuevaOperacion.concepto = concepto == nuevaOperacion.concepto ? nuevaOperacion.concepto : concepto
+
     if (monto) {
         nuevaOperacion.monto = monto;
     }
@@ -70,11 +72,6 @@ exports.actualizarOperacion = async(req, res) => {
     if (categoria) {
         nuevaOperacion.categoria = categoria;
     }
-
-    // agregar tantos if como campos haya
-
-    // console.log(req.params);
-    // console.log(req.body);
 
     try {
         

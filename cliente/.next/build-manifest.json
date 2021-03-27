@@ -32,6 +32,14 @@
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
+    "/listado": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
+    "/login": [
+      "static/runtime/webpack.js",
+      "static/runtime/main.js"
+    ],
     "/registraroperacion": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"

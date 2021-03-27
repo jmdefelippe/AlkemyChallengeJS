@@ -69,7 +69,7 @@ const Listado = () => {
 
             <div className="flex gap-10">
                 
-                <div className="mb-4">
+                <div className="mb-4 lg:ml-0 md:ml-0 sm:ml-4">
                     <label 
                       className="block text-black text-sm font-bold mb-2"
                       htmlFor="orden"

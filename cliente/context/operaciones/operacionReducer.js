@@ -1,15 +1,12 @@
 import {
-    FORMULARIO_OPERACION,
     OBTENER_OPERACIONES,
     AGREGAR_OPERACION,
     OPERACION_EXITOSA,
     OCULTAR_ALERTA,
     OPERACION_ERROR,
-    VALIDAR_FORMULARIO,
     OPERACION_ACTUAL,
     ELIMINAR_OPERACION,
     ACTUALIZAR_OPERACION,
-    LIMPIAR_OPERACION,
     CALCULAR_BALANCE,
     OPERACIONES_CATEGORIAS,
     TOTAL_INGRESOS,
@@ -18,11 +15,6 @@ import {
 
 export default (state, action) => {
     switch(action.type) {
-        case FORMULARIO_OPERACION:
-            return {
-                ...state,
-                formulario: true
-            }
         case OBTENER_OPERACIONES:
             return {
                 ...state,
@@ -35,16 +27,17 @@ export default (state, action) => {
                 formulario: false,
                 errorformulario: false
             }
-        case VALIDAR_FORMULARIO:
-            return {
-                ...state,
-                errorformulario: true
-            }
         case OPERACION_ACTUAL:
             return {
                 ...state,
                 operacion: state.operaciones.filter(operacion => operacion._id ===
                 action.payload)
+            }
+        case ACTUALIZAR_OPERACION:
+            return {
+                ...state,
+                operaciones: state.operaciones.map(operacion => operacion._id === action.payload._id
+                ? action.payload : operacion)
             }
         case ELIMINAR_OPERACION:
             return {
@@ -64,17 +57,6 @@ export default (state, action) => {
             return {
                 ...state,
                 mensaje: action.payload
-            }
-        case ACTUALIZAR_OPERACION:
-            return {
-                ...state,
-                operaciones: state.operaciones.map(operacion => operacion._id === action.payload._id
-                ? action.payload : operacion)
-            }
-        case LIMPIAR_OPERACION:
-            return {
-                ...state,
-                operacion: null
             }
         case OPERACIONES_CATEGORIAS:
             return {

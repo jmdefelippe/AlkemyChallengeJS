@@ -9,15 +9,10 @@ import Alerta from '../components/Alerta'
 import Layout from '../components/Layout';
 import Swal from 'sweetalert2';
 
-//import alertaContext from '../context/alertas/alertaContext';
 import authContext from '../context/auth/authContext';
 
 const CrearCuenta = () => {
 
-/*  // extraer los valores del context
-  const AlertaContext = useContext(alertaContext);
-  const { alerta, mostrarAlerta } = AlertaContext;
-*/
   // Acceder al state
   const AuthContext = useContext(authContext);
   const { mensaje, autenticado, registrarUsuario } = AuthContext;
@@ -47,11 +42,7 @@ const CrearCuenta = () => {
 
       router.push('/login');
     }
-/*    
-    if(mensaje) {
-      mostrarAlerta(mensaje.msg, mensaje.categoria);
-    }
-*/
+
   }, [autenticado, mensaje]);
 
   // Formulario y validación con formik y Yup
@@ -80,24 +71,7 @@ const CrearCuenta = () => {
      
       onSubmit: valores => {
           registrarUsuario(valores);
-/*
-          // mostrar mensaje ok
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Cuenta creada',
-            width: 400,
-            height: 400,
-            timer: 2000,
-            confirmButtonColor: '#60A5FA',
-            confirmButtonText: 'Ok!',
-          })
-          
-*/
-
-          //router.push('/login');
-          
-    }
+      }
   });
 
   return ( 
