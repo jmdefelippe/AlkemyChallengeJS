@@ -72,7 +72,7 @@ const editarOperacion = () => {
   return (
       <Layout>
         <div className="md:w-4/5 xl:w-3/5 mx-auto">
-          <h2 className="text-3xl font-sans font-bold text-black-500 text-center my-4">Editar Operación</h2>
+          <h2 className="text-xl md:text-2xl lg:text-3xl font-sans font-bold text-black-500 text-center my-4">Editar Operación</h2>
 
           <div className="flex justify-center mt-5">
               <div className="w-full max-w-lg">

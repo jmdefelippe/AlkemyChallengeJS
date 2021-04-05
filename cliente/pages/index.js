@@ -57,7 +57,7 @@ const Index = () => {
                   <Layout>
                       <div className="md:w-4/5 xl:w-3/5 mx-auto">
                         
-                        <h3 className="text-3xl font-sans font-bold text-black-500 text-center my-4"
+                        <h3 className="text-xl md:text-2xl lg:text-3xl font-sans font-bold text-black-500 text-center my-4"
                         >Balance de operaciones de
                             <span className="text-blue-500"> {usuario.nombre}</span>
                         </h3>
