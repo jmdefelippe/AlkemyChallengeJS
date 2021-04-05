@@ -60,7 +60,7 @@ const Listado = () => {
 
         <div className="md:w-4/5 xl:w-5/5 mx-auto">
 
-            <h3 className="text-3xl font-sans font-bold text-black-500 text-center my-4"
+            <h3 className="text-xl md:text-2xl lg:text-3xl font-sans font-bold text-black-500 text-center my-4"
             >Listado de operaciones de
                 <span className="text-blue-500"> {usuario.nombre}</span>
             </h3>
@@ -69,7 +69,7 @@ const Listado = () => {
 
             <div className="flex gap-10">
                 
-                <div className="mb-4 lg:ml-0 md:ml-0 sm:ml-4">
+                <div className="mb-4 ml-4 sm:ml-0">
                     <label 
                       className="block text-black text-sm font-bold mb-2"
                       htmlFor="orden"

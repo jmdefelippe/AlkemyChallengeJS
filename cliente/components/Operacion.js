@@ -70,11 +70,11 @@ const Operacion = ({ operacion }) => {
     return (
         
         <div className="flex flex-wrap my-2 items-center">
-            <p className="flex-1 font-bold text-blue-500 uppercase">{tipo}</p>
-            <p className="flex-1">{categoria}</p>
-            <p className="flex-1 font-bold">{concepto}</p>
-            <p className="flex-1 font-normal">${monto}</p>
-            <p className="flex-1 italic">{fecha}</p>
+            <p className="flex-1 font-bold text-blue-500 uppercase text-sm lg:text-base">{tipo}</p>
+            <p className="hidden lg:flex lg:flex-1 text-sm lg:text-base">{categoria}</p>
+            <p className="flex-1 font-bold text-sm lg:text-base">{concepto}</p>
+            <p className="flex-1 font-normal text-sm lg:text-base">${monto}</p>
+            <p className="flex-1 italic text-sm lg:text-base">{fecha}</p>
         
             <img 
                 className="w-6 mr-5 cursor-pointer" src="/editar.png"

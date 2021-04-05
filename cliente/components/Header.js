@@ -41,14 +41,14 @@ const Header = () => {
                         </button>
                     </div>
 
-                    <div className="flex items-center flex-shrink-0 text-white mr-20">
+                    <div className="flex items-center flex-shrink-0 text-white lg:mr-32">
                         <img 
                             onClick={() => redireccionar() }
-                            className="w-64 mb-8 md:mb-0 sm:mb-0 cursor-pointer sm:mr-0 md:mr-0 lg:mr-10 xl:mr-20" src="/logo.png" 
+                            className="w-40 md:w-56 lg:w-64 mb-8 md:mb-0 sm:mb-0 cursor-pointer" src="/logo.png" 
                         />
                     </div>
                                       
-                    <div id='menu' className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+                    <div id='menu' className="w-full block flex-grow lg:flex lg:items-center lg:w-auto hidden">
                         
                         <div className="lg:flex-grow text-black font-bold">
 
@@ -61,8 +61,8 @@ const Header = () => {
 
                             <Link href="/listado">
                                 <a className={router.pathname === "/listado"
-                                    ? "block  lg:inline-block mt-0 mr-10  hover:text-blue-400 underline"
-                                    : "block  lg:inline-block mt-0 mr-10  hover:text-blue-400"
+                                    ? "block lg:inline-block mt-0 mr-10  hover:text-blue-400 underline"
+                                    : "block lg:inline-block mt-0 mr-10  hover:text-blue-400"
                                 }>Listado</a>
                             </Link>
 
@@ -70,7 +70,7 @@ const Header = () => {
                         
                         <div>
                             <a href="/login" className="bg-blue-400 inline-block text-sm text-white font-bold uppercase px-4 py-2 rounded-lg
-                                hover:bg-black mt-4 lg:mt-0 lg:px-5 lg:py-3"
+                                hover:bg-black mt-4 lg:mt-0 lg:px-5 lg:py-3 shadow-md"
                                 
                                 onClick={() => cerrarSesion()}>Cerrar Sesión</a>
                         </div>
@@ -85,20 +85,20 @@ const Header = () => {
                     
                     <img 
                         onClick={() => redireccionar() }
-                        className="w-64 mb-8 md:mb-0 cursor-pointer " src="/logo.png" 
+                        className="w-64 mb-8 md:mb-0 cursor-pointer" src="/logo.png" 
                     />
 
                     
                         {router.pathname === "/crearcuenta" ? (
                             <Link href="/login">
                                 <a className="bg-blue-400 inline-block text-sm text-white font-bold uppercase px-4 py-2  rounded-lg
-                                                hover:bg-black mt-4 lg:mt-0 lg:px-5 lg:py-3">Iniciar Sesión</a>
+                                                hover:bg-black mt-4 lg:mt-0 lg:px-5 lg:py-3 shadow-md">Iniciar Sesión</a>
                             </Link>
                             ) : (
                             
                             <Link href="/crearcuenta">
                                 <a className="bg-blue-400 inline-block text-sm text-white font-bold uppercase px-4 py-2  rounded-lg
-                                                hover:bg-black mt-4 lg:mt-0 lg:px-5 lg:py-3">Crear Cuenta</a>
+                                                hover:bg-black mt-4 lg:mt-0 lg:px-5 lg:py-3 shadow-md">Crear Cuenta</a>
                             </Link>
                             )}
 
