@@ -30,6 +30,8 @@ const OperacionState = props => {
         egresos: 0
     }
 
+    const timeOut = 2000;
+
     // dispatch para ejecutar las acciones
     const [state, dispatch] = useReducer(operacionReducer, initialState);
 
@@ -91,7 +93,7 @@ const OperacionState = props => {
             dispatch({
                 type: OCULTAR_ALERTA
             })
-        }, 3000); 
+        }, timeOut); 
     }
 
     // selecciona el operacion que el usuario dio click
@@ -137,7 +139,7 @@ const OperacionState = props => {
             dispatch({
                 type: OCULTAR_ALERTA
             })
-        }, 3000); 
+        }, timeOut); 
     }
 
     // elimina un operacion
@@ -177,7 +179,7 @@ const OperacionState = props => {
             dispatch({
                 type: OCULTAR_ALERTA
             })
-        }, 3000); 
+        }, timeOut); 
     }
 
     const calcularTotalIngresos = async () => {

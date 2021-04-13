@@ -25,7 +25,6 @@ const Header = () => {
     }
 
     return (
-
         <div>
             { usuario ? (
 
@@ -107,14 +106,7 @@ const Header = () => {
                 
             )}
         </div>
-
-
-
-
-
-
-
-     );
+    );
 }
  
 export default Header;

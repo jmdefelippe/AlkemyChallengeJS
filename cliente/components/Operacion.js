@@ -12,27 +12,13 @@ const Operacion = ({ operacion }) => {
 
     // obtener la función del context de operaciones
     const operacionesContext = useContext(operacionContext);
-    const { mensaje, eliminarOperacion, operacionActual, } = operacionesContext;
+    const { eliminarOperacion, operacionActual, } = operacionesContext;
 
     const { _id, concepto, monto, tipo, categoria } = operacion;
     let { fecha } = operacion;
 
     fecha = operacion.fecha.substring(0,10);
     
-    useEffect(() => {
-        if (mensaje.categoria === 'alerta-ok') {
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: mensaje.msg,
-                width: 400,
-                timer: 3000,
-                confirmButtonColor: '#60A5FA',
-                confirmButtonText: 'Ok!',
-            })
-        }
-    }, [mensaje]);
-
     // funcion que redirige de forma programada
     const seleccionarOperacion = operacion => {
         operacionActual(operacion);
@@ -64,11 +50,9 @@ const Operacion = ({ operacion }) => {
                 eliminarOperacion(id);
             }
         })
-        
     }
 
     return (
-        
         <div className="flex flex-wrap my-2 items-center">
             <p className="flex-1 font-bold text-blue-500 uppercase text-sm lg:text-base">{tipo}</p>
             <p className="hidden lg:flex lg:flex-1 text-sm lg:text-base">{categoria}</p>
@@ -88,7 +72,6 @@ const Operacion = ({ operacion }) => {
             />
 
         </div>
-
     );
 }
 

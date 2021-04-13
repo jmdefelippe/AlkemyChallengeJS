@@ -2,9 +2,11 @@ import React, { useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 
+import Swal from 'sweetalert2';
+
 import Alerta from '../components/Alerta';
 import Layout from '../components/Layout';
-import Operacion from '../components/Operacion';
+import ListadoOperaciones from '../components/ListadoOperaciones';
 
 import authContext from '../context/auth/authContext';
 import operacionContext from '../context/operaciones/operacionContext';
@@ -25,16 +27,28 @@ const Listado = () => {
   const { operaciones, mensaje, obtenerOperaciones, obtenerOperacionesCategorias } = operacionesContext;
  
   useEffect(() => {
-    const token = localStorage.getItem('token');
+      const token = localStorage.getItem('token');
 
-    if(token) {
-      usuarioAutenticado()
-    } else {
-      router.push('/login');
+      if(token) {
+        usuarioAutenticado()
+      } else {
+        router.push('/login');
+      }
+
+      obtenerOperaciones();
+
+      if (mensaje.categoria === 'alerta-ok') {
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: mensaje.msg,
+            width: 400,
+            timer: 3000,
+            confirmButtonColor: '#60A5FA',
+            confirmButtonText: 'Ok!',
+        })
     }
-
-    obtenerOperaciones();
-    // eslint-disable-next-line
+      // eslint-disable-next-line
   }, [mensaje]);
  
   const ordenarPorFecha = () => {
@@ -57,7 +71,6 @@ const Listado = () => {
   
   return ( 
     <Layout>
-
         <div className="md:w-4/5 xl:w-5/5 mx-auto">
 
             <h3 className="text-xl md:text-2xl lg:text-3xl font-sans font-bold text-black-500 text-center my-4"
@@ -134,19 +147,9 @@ const Listado = () => {
 
             </div>
 
-            { (operaciones.length === 0) ?
-                (<p className="text-2xl font-sans font-bold text-blue-500 text-center my-4">No hay operaciones</p>
-                ) : (  
-
-                    <div className="bg-gray-300 rounded-lg px-5 py-2">
-                      {operaciones.map(operacion => 
-                          <div key={operacion._id} className=""> <Operacion operacion={operacion}/></div>
-                      )}
-                    </div>
-            )}
+            <ListadoOperaciones />
         
         </div>
-
     </Layout>
    );
 }
